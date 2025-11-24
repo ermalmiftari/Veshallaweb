@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Navbar.css";
+import "./Navbar.tsx";
 
 export default function Navbar(): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
