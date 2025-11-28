@@ -1,16 +1,19 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import Home from "./Home";
-import ContactUs from "./ContactUs";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-export default function App(): JSX.Element {
+import Home from "./Home";
+import Shop from "./Shop";
+import Camera from "./Camera";
+import Member from "./Member";
+
+export default function App() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <Home />
-        <ContactUs />
-      </main>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/camera" element={<Camera />} />
+        <Route path="/member" element={<Member />} />
+      </Routes>
+    </Router>
   );
 }
