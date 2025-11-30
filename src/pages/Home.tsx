@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-export default function MountainVillageHome(): JSX.Element {
+export default function Home(): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
@@ -33,22 +33,13 @@ export default function MountainVillageHome(): JSX.Element {
           </a>
 
           <div className="hidden items-center gap-6 sm:flex">
-            <a
-              href="#things"
-              className="text-sm font-medium text-white/90 hover:text-emerald-100 hover:underline"
-            >
+            <a href="#things" className="text-sm font-medium text-white/90 hover:text-emerald-100 hover:underline">
               Things
             </a>
-            <a
-              href="#gallery"
-              className="text-sm font-medium text-white/90 hover:text-emerald-100 hover:underline"
-            >
+            <a href="#gallery" className="text-sm font-medium text-white/90 hover:text-emerald-100 hover:underline">
               Gallery
             </a>
-            <a
-              href="#plan"
-              className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600"
-            >
+            <a href="#plan" className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-orange-600">
               Plan visit
             </a>
           </div>
@@ -92,42 +83,37 @@ export default function MountainVillageHome(): JSX.Element {
         </AnimatePresence>
       </nav>
 
-      {/* HERO UPDATED */}
+      {/* HERO WITH PUBLIC IMAGE */}
       <header
         id="home"
-        className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-emerald-600 to-emerald-800 text-white px-6"
+        className="relative min-h-screen text-white"
+        style={{
+          backgroundImage: `url("/veshallaMain2.jpg")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-14 drop-shadow-lg">
-          Welcome to Veshalla
-        </h1>
+        <div className="absolute inset-0 bg-black/40" />
 
-        {/* HORIZONTAL BUTTONS */}
-        <div className="flex flex-row gap-6 w-full max-w-2xl justify-center">
+        <div className="relative flex min-h-screen flex-col items-center justify-center px-6">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-14 drop-shadow-lg text-center">
+            Welcome to Veshalla
+          </h1>
 
-          {/* SHOP BUTTON */}
-          <a
-            href="/shop"
-            className="text-center min-w-[150px] py-4 bg-white text-emerald-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition"
-          >
-            🛒 Shop
-          </a>
+          <div className="flex flex-row gap-6 w-full max-w-2xl justify-center">
+            <a href="/shop" className="text-center min-w-[150px] py-4 bg-white text-emerald-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition">
+              🛒 Shop
+            </a>
 
-          {/* MEMBER BUTTON */}
-          <a
-            href="/member"
-            className="text-center min-w-[150px] py-4 bg-white text-emerald-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition"
-          >
-            👤 Members
-          </a>
+            <a href="/member" className="text-center min-w-[150px] py-4 bg-white text-emerald-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition">
+              👤 Members
+            </a>
 
-          {/* CAMERA BUTTON */}
-          <a
-            href="/camera"
-            className="text-center min-w-[150px] py-4 bg-white text-emerald-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition"
-          >
-            📷 Camera
-          </a>
-
+            <a href="/camera" className="text-center min-w-[150px] py-4 bg-white text-emerald-700 font-semibold rounded-xl shadow-lg hover:bg-gray-100 transition">
+              📷 Camera
+            </a>
+          </div>
         </div>
       </header>
 
@@ -137,10 +123,10 @@ export default function MountainVillageHome(): JSX.Element {
           <h2 className="mt-3 text-3xl font-bold md:text-4xl">Hike • Taste • Explore</h2>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {[ 
+            {[
               { t: "Trail to Upper Meadow", d: "A 3.2 km loop with gentle incline and panoramic viewpoints. Great for families." },
               { t: "Village Food Tour", d: "Visit farms for fresh cheese, wildflower honey, and herbal tea. Weekend mornings only." },
-              { t: "Waterfall & Forest Walk", d: "Shaded trail along a stream ending at a small waterfall. Wear proper shoes." }
+              { t: "Waterfall & Forest Walk", d: "Shaded trail along a stream ending at a small waterfall. Wear proper shoes." },
             ].map((x, i) => (
               <article
                 key={i}
@@ -172,7 +158,7 @@ export default function MountainVillageHome(): JSX.Element {
         </div>
       </section>
 
-      {/* Lightbox */}
+      {/* LIGHTBOX */}
       <AnimatePresence>
         {lightboxSrc && (
           <motion.div
@@ -188,10 +174,7 @@ export default function MountainVillageHome(): JSX.Element {
               transition={{ type: "spring", stiffness: 300 }}
               className="max-w-[90vw] max-h-[90vh]"
             >
-              <img
-                src={lightboxSrc}
-                className="max-h-[80vh] w-auto rounded-xl object-contain shadow-2xl"
-              />
+              <img src={lightboxSrc} className="max-h-[80vh] w-auto rounded-xl object-contain shadow-2xl" />
               <button
                 onClick={() => setLightboxSrc(null)}
                 className="mt-4 w-full rounded-lg bg-white px-4 py-2 font-semibold"
