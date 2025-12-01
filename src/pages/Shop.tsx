@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 
 export default function Shop(): JSX.Element {
+  const { lang } = useParams<{ lang: string }>();
+
   const [cartOpen, setCartOpen] = useState(false);
   const [detail, setDetail] = useState<any>(null);
   const [query, setQuery] = useState("");
@@ -61,7 +64,6 @@ export default function Shop(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-700 to-emerald-900 text-white relative overflow-hidden">
-
       {/* 🌿 PARALLAX TREES (FOREGROUND) */}
       <motion.img
         src="https://i.imgur.com/LjGQe1u.png"
@@ -107,12 +109,12 @@ export default function Shop(): JSX.Element {
       </div>
 
       {/* 🏔 BACK BUTTON */}
-      <a
-        href="/"
+      <Link
+        to={`/${lang || "en"}/home`}
         className="fixed top-6 left-6 z-50 px-5 py-3 bg-white/90 text-emerald-800 font-semibold rounded-xl shadow-xl hover:bg-gray-100 transition backdrop-blur"
       >
         ⛰️ Home
-      </a>
+      </Link>
 
       {/* ================= TITLE + SEARCH ================= */}
       <header className="pt-32 pb-10 text-center">
@@ -256,7 +258,7 @@ export default function Shop(): JSX.Element {
 
                 <button
                   onClick={() => updateQuantity(detail.name, +1)}
-                  className="px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30"
+                  className="px-3 py-1 bg-white/20 rounded-lg hover:bg白/30"
                 >
                   ➕
                 </button>
