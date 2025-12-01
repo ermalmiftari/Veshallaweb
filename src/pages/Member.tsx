@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Check, AlertCircle } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function Member() {
+  const { lang } = useParams<{ lang: string }>();
+  const navigate = useNavigate();
+  const activeLang = lang || "en";
+
   const [location, setLocation] = useState<"mk" | "diaspora">("mk");
   const [formData, setFormData] = useState({
     firstName: "",
@@ -135,7 +140,7 @@ export default function Member() {
       </div>
 
       <button
-        onClick={() => window.location.href = '/'}
+        onClick={() => navigate(`/${activeLang}/home`)}
         className="absolute top-8 left-8 z-20 inline-flex items-center gap-2 text-sm text-amber-300/80 hover:text-amber-300 transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
