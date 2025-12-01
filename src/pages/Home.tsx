@@ -138,25 +138,24 @@ export default function Home(): JSX.Element {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-emerald-900/40 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/50 via-black/40 to-emerald-800/50" />
         
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-orange-300/30 rounded-full"
+              className="absolute w-1.5 h-1.5 bg-white/20 rounded-full"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
               }}
               animate={{
-                y: [0, -30, 0],
-                opacity: [0.2, 0.5, 0.2],
-                scale: [1, 1.5, 1],
+                y: [0, -20, 0],
+                opacity: [0.1, 0.3, 0.1],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: 4 + Math.random() * 2,
                 repeat: Infinity,
                 delay: Math.random() * 2,
               }}
@@ -165,11 +164,12 @@ export default function Home(): JSX.Element {
         </div>
 
         <div className="relative flex min-h-screen flex-col items-center justify-center px-6">
-          <motion.h1 
-            initial={{ scale: 0.5, opacity: 0, y: 50 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            transition={{ duration: 1, type: "spring", stiffness: 100 }}
-            className="text-5xl md:text-7xl font-extrabold mb-6 drop-shadow-2xl text-center bg-gradient-to-r from-orange-200 via-orange-300 to-orange-200 bg-clip-text text-transparent animate-shimmer"
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-7xl font-bold mb-6 text-white text-center tracking-tight"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}
           >
             Welcome to Veshalla
           </motion.h1>
@@ -177,8 +177,8 @@ export default function Home(): JSX.Element {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-xl md:text-2xl mb-12 text-orange-100/90 text-center max-w-2xl font-light tracking-wide"
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-lg md:text-xl mb-12 text-white/90 text-center max-w-2xl"
           >
             Where mountains meet tradition
           </motion.p>
@@ -186,32 +186,32 @@ export default function Home(): JSX.Element {
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex flex-row gap-6 w-full max-w-2xl justify-center"
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="flex flex-row gap-4 w-full max-w-2xl justify-center flex-wrap"
           >
             <motion.a 
-              whileHover={{ scale: 1.1, rotate: 2, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
               href="/shop"
-              className="min-w-[150px] py-4 bg-gradient-to-br from-orange-100 to-orange-200 text-emerald-800 font-semibold rounded-xl shadow-2xl hover:shadow-orange-200/50 transition text-center border-2 border-orange-300"
+              className="min-w-[140px] py-3 px-6 bg-white text-emerald-900 font-semibold rounded-lg shadow-lg hover:shadow-xl transition text-center"
             >
               🛒 Shop
             </motion.a>
 
             <motion.a 
-              whileHover={{ scale: 1.1, rotate: -2, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
               href="/member"
-              className="min-w-[150px] py-4 bg-gradient-to-br from-emerald-100 to-emerald-200 text-emerald-800 font-semibold rounded-xl shadow-2xl hover:shadow-emerald-200/50 transition text-center border-2 border-emerald-300"
+              className="min-w-[140px] py-3 px-6 bg-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:bg-emerald-700 transition text-center"
             >
               👤 Members
             </motion.a>
 
             <motion.a 
-              whileHover={{ scale: 1.1, rotate: 2, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
               href="/camera"
-              className="min-w-[150px] py-4 bg-gradient-to-br from-orange-100 to-orange-200 text-emerald-800 font-semibold rounded-xl shadow-2xl hover:shadow-orange-200/50 transition text-center border-2 border-orange-300"
+              className="min-w-[140px] py-3 px-6 bg-white text-emerald-900 font-semibold rounded-lg shadow-lg hover:shadow-xl transition text-center"
             >
               📷 Camera
             </motion.a>
@@ -220,16 +220,16 @@ export default function Home(): JSX.Element {
           {/* Scroll indicator */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1, y: [0, 10, 0] }}
-            transition={{ delay: 1.5, duration: 1.5, repeat: Infinity }}
+            animate={{ opacity: 1, y: [0, 8, 0] }}
+            transition={{ delay: 1, duration: 2, repeat: Infinity }}
             className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           >
-            <div className="text-orange-200 text-sm font-light tracking-widest">SCROLL</div>
-            <div className="w-6 h-10 border-2 border-orange-200 rounded-full mx-auto mt-2 relative">
+            <div className="text-white/70 text-xs font-light tracking-widest">SCROLL</div>
+            <div className="w-5 h-8 border-2 border-white/50 rounded-full mx-auto mt-2 relative">
               <motion.div 
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-1.5 h-1.5 bg-orange-300 rounded-full absolute left-1/2 transform -translate-x-1/2 top-2"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-1 h-1 bg-white/70 rounded-full absolute left-1/2 transform -translate-x-1/2 top-2"
               />
             </div>
           </motion.div>
@@ -270,7 +270,7 @@ export default function Home(): JSX.Element {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2, duration: 0.6 }}
-                whileHover={{ y: -10, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
+                whileHover={{ y: -8, boxShadow: "0 12px 24px rgba(0,0,0,0.1)" }}
                 className="group rounded-3xl border-2 border-orange-200 bg-white/90 backdrop-blur p-8 shadow-lg hover:border-orange-400 transition-all relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-100 to-transparent rounded-bl-full opacity-50" />
@@ -327,7 +327,7 @@ export default function Home(): JSX.Element {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ scale: 1.05, rotate: 2, zIndex: 10 }}
+                whileHover={{ scale: 1.03, rotate: 1, zIndex: 10 }}
                 className="h-48 w-full cursor-pointer rounded-2xl object-cover sm:h-52 md:h-56 shadow-xl hover:shadow-2xl transition-shadow border-2 border-white"
               />
             ))}
@@ -397,18 +397,18 @@ export default function Home(): JSX.Element {
 
             <div className="mt-10 flex flex-wrap gap-6 justify-center">
               <motion.a 
-                whileHover={{ scale: 1.1, boxShadow: "0 20px 40px rgba(251, 146, 60, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
                 href="#" 
-                className="rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 font-bold text-white shadow-2xl hover:shadow-orange-500/50 text-lg"
+                className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-4 font-semibold text-white shadow-lg hover:shadow-xl text-lg"
               >
                 📅 Book homestay
               </motion.a>
               <motion.a 
-                whileHover={{ scale: 1.1, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.4)" }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
                 href="#" 
-                className="rounded-2xl border-2 border-emerald-500 bg-emerald-50 px-8 py-4 font-bold text-emerald-800 hover:bg-emerald-100 shadow-xl text-lg"
+                className="rounded-xl border-2 border-emerald-600 bg-white px-8 py-4 font-semibold text-emerald-800 hover:bg-emerald-50 shadow-lg text-lg"
               >
                 🚌 Check transport
               </motion.a>
