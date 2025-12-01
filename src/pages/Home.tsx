@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Home(): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const { lang } = useParams<{ lang: string }>();
+  const navigate = useNavigate();
+
+  const activeLang = lang || "en";
 
   const gallery = [
     "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop",
@@ -116,9 +121,11 @@ export default function Home(): JSX.Element {
                 <a href="#gallery" className="text-orange-100 hover:text-orange-300" onClick={() => setMenuOpen(false)}>
                   Gallery
                 </a>
-                <a href="#plan"
+                <a
+                  href="#plan"
                   className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white text-center hover:bg-orange-600"
-                  onClick={() => setMenuOpen(false)}>
+                  onClick={() => setMenuOpen(false)}
+                >
                   Plan visit
                 </a>
               </div>
@@ -169,7 +176,7 @@ export default function Home(): JSX.Element {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-7xl font-bold mb-6 text-white text-center tracking-tight"
-            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.3)" }}
           >
             Welcome to Veshalla
           </motion.h1>
@@ -189,32 +196,35 @@ export default function Home(): JSX.Element {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="flex flex-row gap-4 w-full max-w-2xl justify-center flex-wrap"
           >
-            <motion.a 
+            {/* Shop */}
+            <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="/shop"
+              onClick={() => navigate(`/${activeLang}/shop`)}
               className="min-w-[140px] py-3 px-6 bg-white text-emerald-900 font-semibold rounded-lg shadow-lg hover:shadow-xl transition text-center"
             >
               🛒 Shop
-            </motion.a>
+            </motion.button>
 
-            <motion.a 
+            {/* Members */}
+            <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="/member"
+              onClick={() => navigate(`/${activeLang}/member`)}
               className="min-w-[140px] py-3 px-6 bg-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:bg-emerald-700 transition text-center"
             >
               👤 Members
-            </motion.a>
+            </motion.button>
 
-            <motion.a 
+            {/* Camera */}
+            <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              href="/camera"
+              onClick={() => navigate(`/${activeLang}/camera`)}
               className="min-w-[140px] py-3 px-6 bg-white text-emerald-900 font-semibold rounded-lg shadow-lg hover:shadow-xl transition text-center"
             >
               📷 Camera
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           {/* Scroll indicator */}
