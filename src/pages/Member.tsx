@@ -37,7 +37,10 @@ export default function Member() {
 
   return (
     <div
-      className="min-h-screen relative px-6 py-12 text-white flex flex-col"
+      className="
+      min-h-screen relative px-4 sm:px-6 py-10 
+      text-white flex flex-col
+      "
       style={{
         background:
           "linear-gradient(to bottom, #0f0f0f 0%, #121712 45%, #0e1712 100%)",
@@ -46,30 +49,35 @@ export default function Member() {
       {/* ORANGE GLOW */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,140,60,0.25),transparent_70%)] pointer-events-none" />
 
-      {/* NATURAL FOREST GLOW */}
+      {/* FOREST GLOW */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(60,100,70,0.20),transparent_80%)] pointer-events-none" />
 
-      {/* BACK BUTTON */}
-      <div className="relative z-10 mb-8">
+      {/* CLEAN HOME BUTTON */}
+      <div className="relative z-10 mb-6">
         <Link
           to="/"
-          className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-lg shadow-lg transition"
+          className="
+            flex items-center gap-2
+            text-amber-300 hover:text-amber-200 
+            text-sm sm:text-base 
+            font-medium transition
+          "
         >
-          ← Back to Home
+          <span className="text-lg">⛰️</span> Home
         </Link>
       </div>
 
       {/* HEADER */}
-      <div className="relative z-10 text-center max-w-3xl mx-auto mb-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-amber-200/80 mb-2">
-          Veshalla Community
+      <div className="relative z-10 text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+        <p className="text-xs tracking-[0.25em] text-amber-200/80 mb-1">
+          COMMUNITY
         </p>
 
-        <h1 className="text-4xl md:text-5xl font-bold drop-shadow-xl">
+        <h1 className="text-3xl sm:text-5xl font-bold drop-shadow-xl">
           <span className="text-amber-300">Veshalla</span> Membership
         </h1>
 
-        <p className="text-gray-300 text-base md:text-lg mt-4 max-w-2xl mx-auto">
+        <p className="text-gray-300 text-sm sm:text-lg mt-3 sm:mt-4 max-w-xl mx-auto">
           A mountain village with a global heart — wherever you are, you belong
           to Veshalla.
         </p>
@@ -77,27 +85,31 @@ export default function Member() {
 
       {/* FORM CARD */}
       <div className="relative z-10 max-w-xl mx-auto w-full">
-        <div className="bg-black/40 border border-[#3b3b3b] backdrop-blur-xl shadow-xl rounded-2xl p-8">
-          <h2 className="text-center text-xl font-semibold text-amber-300 mb-6">
+        <div className="bg-black/40 border border-[#3b3b3b] backdrop-blur-xl shadow-xl rounded-2xl p-6 sm:p-8">
+          <h2 className="text-center text-lg sm:text-xl font-semibold text-amber-300 mb-5">
             Membership Form
           </h2>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* NAME FIELDS */}
-            <div className="grid sm:grid-cols-2 gap-4">
+          <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit}>
+            {/* NAME ROW */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm text-gray-300 mb-1 block">Name</label>
+                <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
+                  Name
+                </label>
                 <input
-                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
                   value={formData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                 />
               </div>
 
               <div>
-                <label className="text-sm text-gray-300 mb-1 block">Surname</label>
+                <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
+                  Surname
+                </label>
                 <input
-                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
                   value={formData.surname}
                   onChange={(e) => handleChange("surname", e.target.value)}
                 />
@@ -105,11 +117,13 @@ export default function Member() {
             </div>
 
             {/* PHONE + EMAIL */}
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm text-gray-300 mb-1 block">Phone</label>
+                <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
+                  Phone
+                </label>
                 <input
-                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
                   placeholder="+389 ..."
                   value={formData.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
@@ -117,9 +131,11 @@ export default function Member() {
               </div>
 
               <div>
-                <label className="text-sm text-gray-300 mb-1 block">Email</label>
+                <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
+                  Email
+                </label>
                 <input
-                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
                   value={formData.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                 />
@@ -128,24 +144,28 @@ export default function Member() {
 
             {/* ADDRESS */}
             <div>
-              <label className="text-sm text-gray-300 mb-1 block">Address</label>
+              <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
+                Address
+              </label>
               <input
-                className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
                 value={formData.address}
                 onChange={(e) => handleChange("address", e.target.value)}
               />
             </div>
 
-            {/* COUNTRY SELECT — FIXED & CLEAR */}
+            {/* COUNTRY SELECT */}
             <div>
-              <label className="text-sm text-gray-300 mb-1 block">Where do you live?</label>
+              <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
+                Where do you live?
+              </label>
 
               <select
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="
-                  w-full bg-[#1a1f1c] border border-[#5c5c5c] 
-                  text-white px-4 py-2.5 rounded-lg 
+                  w-full bg-[#1a1f1c] border border-[#5c5c5c]
+                  text-white px-3 py-2 sm:py-2.5 rounded-lg
                   focus:ring-1 focus:ring-amber-400 outline-none cursor-pointer
                 "
               >
@@ -170,8 +190,8 @@ export default function Member() {
             </div>
 
             {/* PRICE BOX */}
-            <div className="bg-black/40 border border-[#4c4c4c] px-5 py-4 rounded-xl">
-              <p className="text-amber-300 font-semibold text-lg">
+            <div className="bg-black/40 border border-[#4c4c4c] px-4 sm:px-5 py-3 sm:py-4 rounded-xl">
+              <p className="text-amber-300 font-medium text-base sm:text-lg">
                 Membership fee:
                 <span className="font-bold text-amber-200">
                   {" "}
@@ -179,17 +199,21 @@ export default function Member() {
                 </span>
               </p>
 
-              <p className="text-xs text-amber-200/80 mt-1">
+              <p className="text-[10px] sm:text-xs text-amber-200/80 mt-1">
                 {location === "mk"
                   ? "Local membership price."
                   : `Diaspora · ${label}`}
               </p>
             </div>
 
-            {/* SUBMIT BUTTON */}
+            {/* SUBMIT */}
             <button
               type="submit"
-              className="w-full bg-amber-600 hover:bg-amber-500 py-3 rounded-lg font-semibold shadow-lg transition"
+              className="
+                w-full bg-amber-600 hover:bg-amber-500 
+                py-3 sm:py-3.5 rounded-lg font-semibold 
+                shadow-lg transition text-sm sm:text-base
+              "
             >
               Join Veshalla →
             </button>

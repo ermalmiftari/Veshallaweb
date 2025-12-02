@@ -14,7 +14,6 @@ export default function Shop() {
     }));
   };
 
-  // T-SHIRT PRODUCTS
   const products = [
     {
       name: "Veshalla Classic T-Shirt",
@@ -56,37 +55,49 @@ export default function Shop() {
 
   return (
     <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#1a1410] via-[#0f1612] to-[#0a0d0b]">
-      {/* Subtle texture overlay */}
+
+      {/* Background texture */}
       <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:24px_24px]" />
 
-      {/* Back Button */}
+      {/* HOME BUTTON */}
       <a
         href="/"
-        className="fixed top-6 left-6 z-50 px-5 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
+        className="fixed top-4 left-4 sm:top-6 sm:left-6 z-50 px-3 py-2 text-gray-400 hover:text-amber-200 font-medium transition text-sm sm:text-base flex items-center gap-2"
       >
-        ⛰️ Home
+        ← Home
       </a>
 
       {/* HEADER */}
-      <header className="pt-32 pb-10 text-center relative z-10">
-        <h1 className="text-4xl md:text-5xl font-bold text-amber-100 mb-4">
-          Veshalla T-Shirts
+      <header className="pt-28 sm:pt-32 pb-12 sm:pb-16 text-center relative z-10 px-4">
+
+        <div className="inline-block mb-4 px-4 py-1.5 bg-amber-600/10 border border-amber-600/20 rounded-full">
+          <span className="text-amber-200 text-xs sm:text-sm font-medium">
+            Official Merchandise
+          </span>
+        </div>
+
+        <h1 className="text-3xl sm:text-5xl font-bold text-amber-100 mb-3 sm:mb-4">
+          Veshalla Collection
         </h1>
-        <p className="text-gray-300 text-base md:text-lg max-w-xl mx-auto">
-          Premium shirts inspired by Veshalla's nature and culture.
+
+        <p className="text-gray-400 text-sm sm:text-lg max-w-xl mx-auto leading-relaxed px-2">
+          Wear the spirit of the mountains — crafted for our global community.
         </p>
       </header>
 
-      {/* PRODUCT GRID */}
-      <section className="max-w-7xl mx-auto px-6 pb-32 relative z-10">
-        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      {/* PRODUCTS GRID */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-28 sm:pb-32 relative z-10">
+
+        <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
           {products.map((p, i) => (
             <div
               key={i}
-              className="rounded-xl bg-stone-900/50 border border-stone-700/40 shadow-xl overflow-hidden hover:border-amber-600/50 transition-all duration-200 group"
+              className="rounded-xl bg-stone-900/50 border border-stone-700/40 shadow-xl overflow-hidden hover:border-stone-600/60 hover:shadow-2xl transition-all duration-300"
             >
-              <div 
-                className="h-64 w-full overflow-hidden cursor-pointer"
+              {/* IMAGE */}
+              <div
+                className="h-64 sm:h-72 w-full overflow-hidden cursor-pointer relative"
                 onClick={() => {
                   setSelectedSize("M");
                   setDetail(p);
@@ -95,87 +106,113 @@ export default function Shop() {
                 <img
                   src={p.img}
                   alt={p.name}
-                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
                 />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-amber-100 mb-1">
+              {/* CARD CONTENT */}
+              <div className="p-5 sm:p-6">
+                <h3 className="text-lg font-semibold text-amber-100 mb-1 sm:mb-2">
                   {p.name}
                 </h3>
-                <p className="text-gray-400 text-sm mb-2">{p.desc}</p>
-                <p className="text-amber-200 font-bold text-lg mb-4">{p.price}</p>
 
+                <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+                  {p.desc}
+                </p>
+
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-amber-200 font-bold text-xl">{p.price}</p>
+                  <span className="text-xs text-gray-500 bg-stone-800/50 px-2 py-1 rounded">
+                    In Stock
+                  </span>
+                </div>
+
+                {/* BUTTONS */}
                 <div className="flex gap-3">
                   <button
                     onClick={() => setDetail(p)}
-                    className="flex-1 py-2.5 bg-stone-800/50 border border-stone-700/50 rounded-lg hover:bg-stone-800/70 transition-colors duration-200 font-medium text-sm"
+                    className="flex-1 py-2 bg-transparent border border-stone-700/60 rounded-lg hover:bg-stone-800/40 transition font-medium text-sm text-gray-300"
                   >
-                    View Details
+                    Details
                   </button>
 
                   <button
                     onClick={() => setCartOpen(true)}
-                    className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors duration-200 font-semibold text-sm"
+                    className="flex-1 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition font-semibold text-sm shadow-md shadow-amber-900/20"
                   >
-                    Add to Cart
+                    Add
                   </button>
                 </div>
               </div>
             </div>
           ))}
+
         </div>
       </section>
 
       {/* PRODUCT POPUP */}
       {detail && (
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex justify-center items-center p-6"
+          className="fixed inset-0 bg-black/85 z-50 flex justify-center items-center p-4 sm:p-6"
           onClick={() => setDetail(null)}
         >
           <div
-            className="bg-stone-900/90 border border-stone-700/50 rounded-2xl p-8 max-w-lg w-full shadow-2xl relative"
+            className="
+              bg-stone-900 border border-stone-700 rounded-2xl 
+              p-6 sm:p-8 w-full max-w-lg max-h-[90vh] 
+              overflow-y-auto shadow-xl relative
+            "
             onClick={(e) => e.stopPropagation()}
           >
+            {/* CLOSE */}
             <button
               onClick={() => setDetail(null)}
-              className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors duration-200"
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-stone-800/50 text-gray-400 hover:text-white transition"
             >
-              <X size={24} />
+              <X size={18} />
             </button>
 
-            <div className="rounded-xl overflow-hidden mb-5">
+            {/* IMAGE */}
+            <div className="rounded-xl overflow-hidden mb-4 shadow-lg">
               <img
                 src={detail.img}
                 alt={detail.name}
-                className="w-full h-64 object-cover"
+                className="w-full h-56 sm:h-72 object-cover"
               />
             </div>
 
+            {/* TITLE */}
             <h2 className="text-2xl font-bold text-amber-100 mb-2">
               {detail.name}
             </h2>
 
-            <p className="text-gray-300 text-sm mb-3">{detail.desc}</p>
-            <p className="text-xl font-bold text-amber-200 mb-5">
+            <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+              {detail.desc}
+            </p>
+
+            <p className="text-2xl font-bold text-amber-200 mb-5">
               {detail.price}
             </p>
 
             {/* SIZE SELECTOR */}
-            <div className="mb-5">
-              <p className="text-sm text-gray-400 mb-3 font-medium">Select Size:</p>
+            <div className="mb-6">
+              <p className="text-xs text-gray-400 mb-2 font-medium uppercase tracking-wide">
+                Select Size
+              </p>
 
-              <div className="flex gap-3">
+              <div className="grid grid-cols-4 gap-3">
                 {["S", "M", "L", "XL"].map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
                     className={`
-                      flex-1 py-2 rounded-lg border font-medium transition-colors duration-200
+                      py-2 sm:py-3 rounded-lg border text-sm sm:text-base font-semibold
                       ${
                         selectedSize === size
-                          ? "bg-amber-600 text-white border-amber-600"
-                          : "bg-stone-800/50 border-stone-700/50 text-gray-300 hover:bg-stone-800/70"
+                          ? "bg-amber-600 text-white border-amber-600 shadow-md"
+                          : "bg-stone-800/40 border-stone-700 text-gray-300 hover:bg-stone-800/60"
                       }
                     `}
                   >
@@ -186,32 +223,39 @@ export default function Shop() {
             </div>
 
             {/* QUANTITY */}
-            <div className="flex items-center gap-4 mb-6 justify-center">
-              <button
-                onClick={() => updateQuantity(detail.name, -1)}
-                className="w-10 h-10 bg-stone-800/50 border border-stone-700/50 rounded-lg hover:bg-stone-800/70 transition-colors duration-200 flex items-center justify-center"
-              >
-                −
-              </button>
+            <div className="mb-6">
+              <p className="text-xs text-gray-400 mb-2 uppercase tracking-wide font-medium">
+                Quantity
+              </p>
 
-              <div className="w-16 h-10 bg-stone-800/50 border border-stone-700/50 rounded-lg flex items-center justify-center font-semibold">
-                {quantities[detail.name] || 1}
+              <div className="flex items-center gap-4 justify-center">
+                <button
+                  onClick={() => updateQuantity(detail.name, -1)}
+                  className="w-10 h-10 sm:w-12 sm:h-12 bg-stone-800/50 border border-stone-700 rounded-lg flex items-center justify-center text-lg font-bold text-gray-300 hover:bg-stone-800 transition"
+                >
+                  −
+                </button>
+
+                <div className="w-16 sm:w-20 h-10 sm:h-12 bg-stone-800/40 border border-stone-700 rounded-lg flex items-center justify-center text-lg font-bold">
+                  {quantities[detail.name] || 1}
+                </div>
+
+                <button
+                  onClick={() => updateQuantity(detail.name, 1)}
+                  className="w-10 h-10 sm:w-12 sm:h-12 bg-stone-800/50 border border-stone-700 rounded-lg flex items-center justify-center text-lg font-bold text-gray-300 hover:bg-stone-800 transition"
+                >
+                  +
+                </button>
               </div>
-
-              <button
-                onClick={() => updateQuantity(detail.name, 1)}
-                className="w-10 h-10 bg-stone-800/50 border border-stone-700/50 rounded-lg hover:bg-stone-800/70 transition-colors duration-200 flex items-center justify-center"
-              >
-                +
-              </button>
             </div>
 
+            {/* ADD BUTTON */}
             <button
               onClick={() => {
                 setCartOpen(true);
                 setDetail(null);
               }}
-              className="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold transition-colors duration-200"
+              className="w-full py-3 sm:py-3.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold shadow-md"
             >
               Add to Cart
             </button>
@@ -222,27 +266,56 @@ export default function Shop() {
       {/* CART DRAWER */}
       {cartOpen && (
         <>
-          <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          <div
+            className="fixed inset-0 bg-black/60 z-40"
             onClick={() => setCartOpen(false)}
           />
-          <div className="fixed top-0 right-0 h-full w-full max-w-md bg-stone-900 border-l border-stone-700/50 shadow-2xl z-50 p-6 overflow-y-auto">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-amber-100">Your Cart</h2>
+          <div
+            className="
+            fixed top-0 right-0 h-full w-full max-w-xs sm:max-w-md 
+            bg-stone-900 border-l border-stone-700 shadow-2xl z-50 
+            flex flex-col
+            "
+          >
+            <div className="flex justify-between items-center p-5 sm:p-6 border-b border-stone-700">
+              <h2 className="text-lg sm:text-xl font-bold text-amber-100">
+                Shopping Cart
+              </h2>
               <button
                 onClick={() => setCartOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors duration-200"
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-stone-800/50 text-gray-400 hover:text-white transition"
               >
-                <X size={24} />
+                <X size={18} />
               </button>
             </div>
 
-            <div className="bg-stone-800/50 border border-stone-700/50 rounded-lg p-6 text-center">
-              <p className="text-gray-400">
-                Your cart is empty. Add some products to get started!
-              </p>
-              <p className="text-gray-500 text-sm mt-3">
-                Cart functionality coming soon.
+            <div className="flex-1 overflow-y-auto p-5 sm:p-6">
+              <div className="bg-stone-800/30 border border-stone-700 rounded-xl p-8 text-center">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-stone-800/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-3xl">🛒</span>
+                </div>
+
+                <p className="text-gray-300 font-medium mb-2">
+                  Your cart is empty
+                </p>
+                <p className="text-gray-500 text-xs sm:text-sm">
+                  Add products to begin
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6 border-t border-stone-700">
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-gray-400 text-sm">Subtotal</span>
+                <span className="text-amber-200 font-bold text-lg">0€</span>
+              </div>
+
+              <button className="w-full py-3 bg-stone-700/50 text-gray-500 rounded-lg font-semibold cursor-not-allowed">
+                Checkout
+              </button>
+
+              <p className="text-center text-xs text-gray-600 mt-3">
+                Cart system coming soon
               </p>
             </div>
           </div>
@@ -250,8 +323,18 @@ export default function Shop() {
       )}
 
       {/* FOOTER */}
-      <footer className="text-center py-12 text-gray-500 relative z-10">
-        © 2025 Veshalla T-Shirts — Made with pride 🏔️
+      <footer className="border-t border-stone-800 py-8 relative z-10 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-500 text-xs sm:text-sm">
+            © 2025 Veshalla — Made for our community
+          </p>
+
+          <div className="flex gap-6 text-xs sm:text-sm">
+            <a className="text-gray-500 hover:text-amber-200 transition">Shipping</a>
+            <a className="text-gray-500 hover:text-amber-200 transition">Returns</a>
+            <a className="text-gray-500 hover:text-amber-200 transition">Contact</a>
+          </div>
+        </div>
       </footer>
     </div>
   );
