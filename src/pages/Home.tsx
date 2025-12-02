@@ -11,7 +11,7 @@ export default function Home(): JSX.Element {
 
   const activeLang = lang || "en";
 
-    const gallery = [
+  const gallery = [
     "/WhatsApp Image 2025-12-01 at 22.02.38 (3).jpeg",
     "/WhatsApp Image 2025-12-01 at 22.02.38.jpeg",
     "/WhatsApp Image 2025-12-01 at 22.02.39 (1).jpeg",
@@ -42,6 +42,7 @@ export default function Home(): JSX.Element {
     "/WhatsApp Image 2025-12-01 at 22.20.36.jpeg",
     "/WhatsApp Image 2025-12-01 at 22.20.42.jpeg",
   ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-100 text-slate-900 selection:bg-orange-300 selection:text-emerald-900">
       <style>{`
@@ -165,7 +166,7 @@ export default function Home(): JSX.Element {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/50 via-black/40 to-emerald-800/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
