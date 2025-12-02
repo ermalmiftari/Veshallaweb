@@ -11,17 +11,37 @@ export default function Home(): JSX.Element {
 
   const activeLang = lang || "en";
 
-  const gallery = [
-    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1455218873509-8097305ee378?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1500534314209-a25ddb2bd629?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
+    const gallery = [
+    "/WhatsApp Image 2025-12-01 at 22.02.38 (3).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.02.38.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.02.39 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.02.39.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.11 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.11 (2).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.11 (3).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.11.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.12 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.12.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.13 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.13 (2).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.13.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.14 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.14 (2).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.14 (3).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.14 (4).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.14 (5).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.14.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.15 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.15.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.16 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.16.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.17 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.17.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.10.18.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.20.36 (1).jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.20.36.jpeg",
+    "/WhatsApp Image 2025-12-01 at 22.20.42.jpeg",
   ];
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-100 text-slate-900 selection:bg-orange-300 selection:text-emerald-900">
       <style>{`
