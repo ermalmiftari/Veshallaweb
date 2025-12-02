@@ -30,9 +30,35 @@ export default function Member() {
   const handleChange = (field: string, val: string) =>
     setFormData((prev) => ({ ...prev, [field]: val }));
 
-  const handleSubmit = (e: any) => {
+  // NEW BACKEND CONNECTED SUBMIT
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    alert("Membership submitted!");
+
+    try {
+      const res = await fetch("http://46.101.135.237:4000/api/members", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          location,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error(data);
+        alert(data.error || "Failed to create member");
+      } else {
+        console.log("Member created:", data);
+        alert("Member saved to DB!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Network error");
+    }
   };
 
   return (

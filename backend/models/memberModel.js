@@ -1,82 +1,97 @@
-// In-memory members
-let members = [];
-let nextMemberId = 1;
+// models/memberModel.js
+const pool = require("../config/db");
 
-function getAll() {
-  return members;
+async function getAll() {
+  const [rows] = await pool.query("SELECT * FROM members ORDER BY created_at DESC");
+  return rows;
 }
 
-function getById(id) {
-  return members.find((m) => m.id === id);
+async function getById(id) {
+  const [rows] = await pool.query("SELECT * FROM members WHERE id = ?", [id]);
+  return rows[0] || null;
 }
 
-function create(data) {
+async function create(data) {
   const {
-    emri,
-    mbiemri,
-    adresa,
-    email,
+    name,
+    surname,
     phone,
-    city,
-    country,
-    dateOfBirth,
-    membershipType,
-    notes
+    email,
+    address,
+    location,
+    membership_type = "standard",
+    stripe_session_id = null,
+    stripe_payment_status = null
   } = data;
 
-  const newMember = {
-    id: nextMemberId++,
-    emri,
-    mbiemri,
-    adresa,
-    email,
-    phone,
-    city: city || "",
-    country: country || "",
-    dateOfBirth: dateOfBirth || null,
-    membershipType: membershipType || "standard", // standard | premium | vip
-    isActive: true,
-    notes: notes || "",
-    createdAt: new Date().toISOString()
-  };
+  const [result] = await pool.query(
+    `INSERT INTO members 
+      (name, surname, phone, email, address, location, membership_type, stripe_session_id, stripe_payment_status)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      name,
+      surname,
+      phone,
+      email,
+      address,
+      location,
+      membership_type,
+      stripe_session_id,
+      stripe_payment_status
+    ]
+  );
 
-  members.push(newMember);
-  return newMember;
+  return getById(result.insertId);
 }
 
-function update(id, data) {
-  const index = members.findIndex((m) => m.id === id);
-  if (index === -1) return null;
+async function update(id, data) {
+  // Build dynamic update
+  const fields = [];
+  const values = [];
 
-  const existing = members[index];
+  const allowed = [
+    "name",
+    "surname",
+    "phone",
+    "email",
+    "address",
+    "location",
+    "membership_type",
+    "is_active",
+    "stripe_session_id",
+    "stripe_payment_status"
+  ];
 
-  const updated = {
-    ...existing,
-    emri: data.emri ?? existing.emri,
-    mbiemri: data.mbiemri ?? existing.mbiemri,
-    adresa: data.adresa ?? existing.adresa,
-    email: data.email ?? existing.email,
-    phone: data.phone ?? existing.phone,
-    city: data.city ?? existing.city,
-    country: data.country ?? existing.country,
-    dateOfBirth: data.dateOfBirth ?? existing.dateOfBirth,
-    membershipType: data.membershipType ?? existing.membershipType,
-    isActive:
-      typeof data.isActive === "boolean" ? data.isActive : existing.isActive,
-    notes: data.notes ?? existing.notes
-  };
+  for (const key of allowed) {
+    if (data[key] !== undefined) {
+      fields.push(`${key} = ?`);
+      values.push(data[key]);
+    }
+  }
 
-  members[index] = updated;
-  return updated;
+  if (!fields.length) {
+    return getById(id);
+  }
+
+  values.push(id);
+
+  const [result] = await pool.query(
+    `UPDATE members SET ${fields.join(", ")} WHERE id = ?`,
+    values
+  );
+
+  if (result.affectedRows === 0) return null;
+  return getById(id);
 }
 
-function remove(id) {
-  const index = members.findIndex((m) => m.id === id);
-  if (index === -1) return null;
+async function remove(id) {
+  const member = await getById(id);
+  if (!member) return null;
 
-  const removed = members[index];
-  members.splice(index, 1);
-  return removed;
+  const [result] = await pool.query("DELETE FROM members WHERE id = ?", [id]);
+  if (result.affectedRows === 0) return null;
+
+  return member;
 }
 
 module.exports = {
