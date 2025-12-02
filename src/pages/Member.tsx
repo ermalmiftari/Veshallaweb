@@ -2,174 +2,199 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Member() {
-  const [location, setLocation] = useState<"mk" | "diaspora">("mk");
-  const price = location === "mk" ? 10 : 100;
+  const [location, setLocation] = useState("mk");
+  const [formData, setFormData] = useState({
+    name: "",
+    surname: "",
+    phone: "",
+    email: "",
+    address: "",
+  });
+
+  const prices = {
+    mk: { price: 10, currency: "EUR", label: "🇲🇰 North Macedonia" },
+    switzerland: { price: 100, currency: "CHF", label: "🇨🇭 Switzerland" },
+    germany: { price: 100, currency: "EUR", label: "🇩🇪 Germany" },
+    austria: { price: 100, currency: "EUR", label: "🇦🇹 Austria" },
+    italy: { price: 100, currency: "EUR", label: "🇮🇹 Italy" },
+    slovenia: { price: 100, currency: "EUR", label: "🇸🇮 Slovenia" },
+    belgium: { price: 100, currency: "EUR", label: "🇧🇪 Belgium" },
+    france: { price: 100, currency: "EUR", label: "🇫🇷 France" },
+    sweden: { price: 100, currency: "EUR", label: "🇸🇪 Sweden" },
+    netherlands: { price: 100, currency: "EUR", label: "🇳🇱 Netherlands" },
+    usa: { price: 100, currency: "USD", label: "🇺🇸 USA" },
+  };
+
+  const { price, currency, label } = prices[location];
+
+  const handleChange = (field: string, val: string) =>
+    setFormData((prev) => ({ ...prev, [field]: val }));
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    alert("Membership submitted!");
+  };
 
   return (
     <div
-      className="
-        relative min-h-screen overflow-hidden 
-
-        bg-gradient-to-b 
-        from-amber-700/50 
-        via-emerald-950/60 
-        to-[#1a0f05]/80
-
-        text-white flex flex-col items-start 
-        justify-start px-6 py-12
-      "
+      className="min-h-screen relative px-6 py-12 text-white flex flex-col"
+      style={{
+        background:
+          "linear-gradient(to bottom, #0f0f0f 0%, #121712 45%, #0e1712 100%)",
+      }}
     >
+      {/* ORANGE GLOW */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,140,60,0.25),transparent_70%)] pointer-events-none" />
 
-      {/* DARK ORANGE SUN GLOW */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(255,110,30,0.42),transparent_65%)] pointer-events-none" />
+      {/* NATURAL FOREST GLOW */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(60,100,70,0.20),transparent_80%)] pointer-events-none" />
 
-      {/* DEEP GREEN MOUNTAIN SHADOW */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(0,40,20,0.35),transparent_70%)] pointer-events-none" />
-
-      {/* DARK AMBER SHADOW */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(120,60,20,0.28),transparent_75%)] pointer-events-none" />
-
-
-      {/* HOME BUTTON — LEFT SIDE */}
-      <div className="relative z-10 mb-10 w-full flex justify-start">
+      {/* BACK BUTTON */}
+      <div className="relative z-10 mb-8">
         <Link
           to="/"
-          className="
-            bg-amber-500 hover:bg-amber-400 
-            text-black font-semibold 
-            px-6 py-3 rounded-xl
-            shadow-lg shadow-amber-900/40
-            transition text-lg
-          "
+          className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-lg shadow-lg transition"
         >
           ← Back to Home
         </Link>
       </div>
 
-      {/* TEXT SECTION */}
-      <div className="relative z-10 w-full max-w-3xl text-center mb-10 self-center">
+      {/* HEADER */}
+      <div className="relative z-10 text-center max-w-3xl mx-auto mb-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-amber-200/80 mb-2">
+          Veshalla Community
+        </p>
+
         <h1 className="text-4xl md:text-5xl font-bold drop-shadow-xl">
-          Warmth of <span className="text-amber-300">Veshalla</span>, wherever you go
+          <span className="text-amber-300">Veshalla</span> Membership
         </h1>
 
-        <p className="text-gray-100/90 text-base md:text-lg leading-relaxed mt-4 max-w-2xl mx-auto">
-          A community rooted in tradition, mountains, and the warm colors of home.
-          Whether you live in North Macedonia or across the world, your membership
-          supports Veshalla’s future.
+        <p className="text-gray-300 text-base md:text-lg mt-4 max-w-2xl mx-auto">
+          A mountain village with a global heart — wherever you are, you belong
+          to Veshalla.
         </p>
       </div>
 
       {/* FORM CARD */}
-      <div
-        className="
-          relative z-10 bg-gradient-to-b 
-          from-emerald-950/80 to-emerald-900/70
+      <div className="relative z-10 max-w-xl mx-auto w-full">
+        <div className="bg-black/40 border border-[#3b3b3b] backdrop-blur-xl shadow-xl rounded-2xl p-8">
+          <h2 className="text-center text-xl font-semibold text-amber-300 mb-6">
+            Membership Form
+          </h2>
 
-          border border-amber-500/20 backdrop-blur-xl 
-          shadow-[0_0_50px_-15px_rgba(0,0,0,0.8)]
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* NAME FIELDS */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm text-gray-300 mb-1 block">Name</label>
+                <input
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  value={formData.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                />
+              </div>
 
-          max-w-xl w-full rounded-2xl p-8 self-center
-        "
-      >
-        <h2 className="text-2xl font-semibold text-center mb-2">
-          Become a Member
-        </h2>
-        <p className="text-gray-200/80 text-center text-sm mb-6">
-          Fill your information below.
-        </p>
+              <div>
+                <label className="text-sm text-gray-300 mb-1 block">Surname</label>
+                <input
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  value={formData.surname}
+                  onChange={(e) => handleChange("surname", e.target.value)}
+                />
+              </div>
+            </div>
 
-        <form className="space-y-5">
+            {/* PHONE + EMAIL */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm text-gray-300 mb-1 block">Phone</label>
+                <input
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  placeholder="+389 ..."
+                  value={formData.phone}
+                  onChange={(e) => handleChange("phone", e.target.value)}
+                />
+              </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm text-gray-300 mb-1 block">Email</label>
+                <input
+                  className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                  value={formData.email}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* ADDRESS */}
             <div>
-              <label className="block text-xs text-gray-200/80 mb-1">Name</label>
+              <label className="text-sm text-gray-300 mb-1 block">Address</label>
               <input
-                type="text"
-                className="w-full rounded-lg bg-black/40 border border-white/20 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-amber-400"
-                placeholder="First name"
+                className="w-full bg-black/50 border border-[#4c4c4c] px-4 py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
+                value={formData.address}
+                onChange={(e) => handleChange("address", e.target.value)}
               />
             </div>
 
+            {/* COUNTRY SELECT — FIXED & CLEAR */}
             <div>
-              <label className="block text-xs text-gray-200/80 mb-1">Surname</label>
-              <input
-                type="text"
-                className="w-full rounded-lg bg-black/40 border border-white/20 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-amber-400"
-                placeholder="Last name"
-              />
+              <label className="text-sm text-gray-300 mb-1 block">Where do you live?</label>
+
+              <select
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="
+                  w-full bg-[#1a1f1c] border border-[#5c5c5c] 
+                  text-white px-4 py-2.5 rounded-lg 
+                  focus:ring-1 focus:ring-amber-400 outline-none cursor-pointer
+                "
+              >
+                <option value="mk">🇲🇰 North Macedonia</option>
+
+                <optgroup label="Europe">
+                  <option value="switzerland">🇨🇭 Switzerland</option>
+                  <option value="germany">🇩🇪 Germany</option>
+                  <option value="austria">🇦🇹 Austria</option>
+                  <option value="italy">🇮🇹 Italy</option>
+                  <option value="slovenia">🇸🇮 Slovenia</option>
+                  <option value="belgium">🇧🇪 Belgium</option>
+                  <option value="france">🇫🇷 France</option>
+                  <option value="sweden">🇸🇪 Sweden</option>
+                  <option value="netherlands">🇳🇱 Netherlands</option>
+                </optgroup>
+
+                <optgroup label="World">
+                  <option value="usa">🇺🇸 USA</option>
+                </optgroup>
+              </select>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs text-gray-200/80 mb-1">Mobile number</label>
-              <input
-                type="tel"
-                className="w-full rounded-lg bg-black/40 border border-white/20 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-amber-400"
-                placeholder="+389 ..."
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs text-gray-200/80 mb-1">Email</label>
-              <input
-                type="email"
-                className="w-full rounded-lg bg-black/40 border border-white/20 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-amber-400"
-                placeholder="you@example.com"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs text-gray-200/80 mb-1">Address</label>
-            <input
-              type="text"
-              className="w-full rounded-lg bg-black/40 border border-white/20 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-amber-400"
-              placeholder="Street, city"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-gray-200/80 mb-1">Where do you live?</label>
-            <select
-              value={location}
-              onChange={(e) =>
-                setLocation(e.target.value === "mk" ? "mk" : "diaspora")
-              }
-              className="w-full rounded-lg bg-black/40 border border-white/20 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-amber-400"
-            >
-              <option value="mk">North Macedonia</option>
-              <option value="diaspora">Diaspora</option>
-            </select>
-          </div>
-
-          {/* PRICE BOX */}
-          <div className="bg-black/40 border border-amber-600/40 px-4 py-3 rounded-xl flex items-center justify-between">
-            <div>
-              <p className="font-medium text-amber-300 text-lg">
-                Membership fee: {price} €
+            {/* PRICE BOX */}
+            <div className="bg-black/40 border border-[#4c4c4c] px-5 py-4 rounded-xl">
+              <p className="text-amber-300 font-semibold text-lg">
+                Membership fee:
+                <span className="font-bold text-amber-200">
+                  {" "}
+                  {price} {currency}
+                </span>
               </p>
-              <p className="text-[11px] text-gray-300/80">
+
+              <p className="text-xs text-amber-200/80 mt-1">
                 {location === "mk"
-                  ? "Special price for members living in North Macedonia."
-                  : "Diaspora contribution supporting village progress."}
+                  ? "Local membership price."
+                  : `Diaspora · ${label}`}
               </p>
             </div>
-            <p className="text-[11px] text-gray-300/70">yearly</p>
-          </div>
 
-          <button
-            type="submit"
-            className="
-              w-full rounded-xl bg-amber-500 hover:bg-amber-400 
-              transition px-4 py-3 text-sm font-semibold tracking-wide 
-              shadow-lg shadow-amber-900/40
-            "
-          >
-            Join the Community
-          </button>
-
-        </form>
+            {/* SUBMIT BUTTON */}
+            <button
+              type="submit"
+              className="w-full bg-amber-600 hover:bg-amber-500 py-3 rounded-lg font-semibold shadow-lg transition"
+            >
+              Join Veshalla →
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -1,306 +1,257 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { X } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
 
-export default function Shop(): JSX.Element {
-  const { lang } = useParams<{ lang: string }>();
-
+export default function Shop() {
   const [cartOpen, setCartOpen] = useState(false);
-  const [detail, setDetail] = useState<any>(null);
-  const [query, setQuery] = useState("");
+  const [detail, setDetail] = useState(null);
+  const [selectedSize, setSelectedSize] = useState("M");
+  const [quantities, setQuantities] = useState({});
 
-  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
-
-  const updateQuantity = (name: string, delta: number) => {
+  const updateQuantity = (name, delta) => {
     setQuantities((prev) => ({
       ...prev,
       [name]: Math.max(1, (prev[name] || 1) + delta),
     }));
   };
 
+  // T-SHIRT PRODUCTS
   const products = [
     {
-      name: "Mountain Honey",
-      price: "12€",
-      desc: "Pure raw honey collected from Veshalla’s high-altitude wildflowers.",
-      img: "https://images.unsplash.com/photo-1505577058444-a3dab90d4253?q=80&w=600&auto=format&fit=crop",
+      name: "Veshalla Classic T-Shirt",
+      price: "20€",
+      desc: "Premium cotton shirt with the Veshalla emblem.",
+      img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3c7b?q=80&w=600&auto=format&fit=crop",
     },
     {
-      name: "Wild Herbal Tea",
-      price: "8€",
-      desc: "A soothing mix of hand-picked alpine herbs and flowers.",
-      img: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      name: "Traditional Cheese",
-      price: "15€",
-      desc: "Farm-made goat and sheep cheese matured in natural caves.",
-      img: "https://images.unsplash.com/photo-1559561854-7c1c1b22a4a6?q=80&w=600&auto=format&fit=crop",
-    },
-    {
-      name: "Handmade Wood Craft",
+      name: "Mountain Spirit T-Shirt",
       price: "25€",
-      desc: "Locally carved mountain wood decorations and figures.",
-      img: "https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?q=80&w=600&auto=format&fit=crop",
+      desc: "Inspired by Sharr's mountain lines and warm colors.",
+      img: "https://images.unsplash.com/photo-1551537482-f2075a1d41f2?q=80&w=600&auto=format&fit=crop",
     },
     {
-      name: "Forest Berry Jam",
-      price: "10€",
-      desc: "Jam made from berries growing deep inside the forest trails.",
-      img: "https://images.unsplash.com/photo-1618165705076-0605a2c5a7d8?q=80&w=600&auto=format&fit=crop",
+      name: "Black Forest Edition",
+      price: "30€",
+      desc: "Soft dark cotton with forest-green signature print.",
+      img: "https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=600&auto=format&fit=crop",
     },
     {
-      name: "Dried Mountain Herbs",
-      price: "7€",
-      desc: "Aromatic herbs collected from untouched mountain slopes.",
-      img: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=600&auto=format&fit=crop",
+      name: "Vintage Veshalla Tee",
+      price: "22€",
+      desc: "Retro print inspired by old village traditions.",
+      img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=600&auto=format&fit=crop",
+    },
+    {
+      name: "Diaspora Edition Shirt",
+      price: "27€",
+      desc: "Special edition for the global Veshalla community.",
+      img: "https://images.unsplash.com/photo-1585152456992-e71d5f8236c7b?q=80&w=600&auto=format&fit=crop",
+    },
+    {
+      name: "Alpine Minimal Tee",
+      price: "18€",
+      desc: "Minimalist mountain-themed daily wear.",
+      img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=600&auto=format&fit=crop",
     },
   ];
 
-  const filteredProducts = products.filter((p) =>
-    p.name.toLowerCase().includes(query.toLowerCase())
-  );
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-700 to-emerald-900 text-white relative overflow-hidden">
-      {/* 🌿 PARALLAX TREES (FOREGROUND) */}
-      <motion.img
-        src="https://i.imgur.com/LjGQe1u.png"
-        className="pointer-events-none select-none opacity-40 absolute bottom-0 left-0 w-1/2 -z-10"
-        initial={{ y: 0 }}
-        animate={{ y: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-        style={{ transform: "translateZ(0)" }}
-      />
+    <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#1a1410] via-[#0f1612] to-[#0a0d0b]">
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:24px_24px]" />
 
-      <motion.img
-        src="https://i.imgur.com/LjGQe1u.png"
-        className="pointer-events-none select-none opacity-40 absolute bottom-0 right-0 w-1/2 -z-10 scale-x-[-1]"
-        initial={{ y: 0 }}
-        animate={{ y: [0, 25, 0] }}
-        transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
-      />
-
-      {/* 🍂 FALLING LEAVES */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden -z-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-amber-300 text-xl"
-            style={{
-              top: -20,
-              left: Math.random() * 100 + "%",
-            }}
-            animate={{
-              y: ["0%", "120%"],
-              x: ["0%", Math.random() * 40 - 20 + "%"],
-              rotate: [0, Math.random() * 360],
-            }}
-            transition={{
-              duration: Math.random() * 6 + 6,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-            }}
-          >
-            🍂
-          </motion.div>
-        ))}
-      </div>
-
-      {/* 🏔 BACK BUTTON */}
-      <Link
-        to={`/${lang || "en"}/home`}
-        className="fixed top-6 left-6 z-50 px-5 py-3 bg-white/90 text-emerald-800 font-semibold rounded-xl shadow-xl hover:bg-gray-100 transition backdrop-blur"
+      {/* Back Button */}
+      <a
+        href="/"
+        className="fixed top-6 left-6 z-50 px-5 py-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-lg transition-colors duration-200"
       >
         ⛰️ Home
-      </Link>
+      </a>
 
-      {/* ================= TITLE + SEARCH ================= */}
-      <header className="pt-32 pb-10 text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-5xl md:text-6xl font-extrabold drop-shadow-xl"
-        >
-          Veshalla Shop
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-white/80 mt-3 max-w-xl mx-auto text-lg"
-        >
-          Natural products from the mountain village.
-        </motion.p>
-
-        {/* 🔍 SEARCH BAR */}
-        <motion.input
-          type="text"
-          placeholder="Search products..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="mt-8 w-full max-w-md mx-auto px-5 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/70 focus:outline-none backdrop-blur shadow-xl"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-        />
+      {/* HEADER */}
+      <header className="pt-32 pb-10 text-center relative z-10">
+        <h1 className="text-4xl md:text-5xl font-bold text-amber-100 mb-4">
+          Veshalla T-Shirts
+        </h1>
+        <p className="text-gray-300 text-base md:text-lg max-w-xl mx-auto">
+          Premium shirts inspired by Veshalla's nature and culture.
+        </p>
       </header>
 
-      {/* ================= PRODUCT GRID ================= */}
-      <section className="max-w-7xl mx-auto px-6 pb-32">
-        <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-          {filteredProducts.map((p, i) => (
-            <motion.div
+      {/* PRODUCT GRID */}
+      <section className="max-w-7xl mx-auto px-6 pb-32 relative z-10">
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          {products.map((p, i) => (
+            <div
               key={i}
-              className="rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl overflow-hidden hover:scale-[1.03] transition"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              className="rounded-xl bg-stone-900/50 border border-stone-700/40 shadow-xl overflow-hidden hover:border-amber-600/50 transition-all duration-200 group"
             >
-              <img
-                src={p.img}
-                className="h-56 w-full object-cover cursor-pointer"
-                onClick={() => setDetail(p)}
-              />
+              <div 
+                className="h-64 w-full overflow-hidden cursor-pointer"
+                onClick={() => {
+                  setSelectedSize("M");
+                  setDetail(p);
+                }}
+              >
+                <img
+                  src={p.img}
+                  alt={p.name}
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
 
-              <div className="p-5">
-                <h3 className="text-xl font-semibold">{p.name}</h3>
-                <p className="text-white/80">{p.price}</p>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-amber-100 mb-1">
+                  {p.name}
+                </h3>
+                <p className="text-gray-400 text-sm mb-2">{p.desc}</p>
+                <p className="text-amber-200 font-bold text-lg mb-4">{p.price}</p>
 
-                {/* ➕➖ QUANTITY SELECTOR */}
-                <div className="flex items-center gap-3 mt-3">
-                  <button
-                    onClick={() => updateQuantity(p.name, -1)}
-                    className="px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30"
-                  >
-                    ➖
-                  </button>
-
-                  <div className="px-4 py-1 bg-white/20 rounded-lg">
-                    {quantities[p.name] || 1}
-                  </div>
-
-                  <button
-                    onClick={() => updateQuantity(p.name, +1)}
-                    className="px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30"
-                  >
-                    ➕
-                  </button>
-                </div>
-
-                {/* BUTTONS */}
-                <div className="flex gap-3 mt-4">
+                <div className="flex gap-3">
                   <button
                     onClick={() => setDetail(p)}
-                    className="flex-1 py-3 bg-white/20 rounded-xl hover:bg-white/30 transition font-semibold"
+                    className="flex-1 py-2.5 bg-stone-800/50 border border-stone-700/50 rounded-lg hover:bg-stone-800/70 transition-colors duration-200 font-medium text-sm"
                   >
-                    View
+                    View Details
                   </button>
 
                   <button
                     onClick={() => setCartOpen(true)}
-                    className="flex-1 py-3 bg-orange-500 rounded-xl hover:bg-orange-600 transition font-semibold"
+                    className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors duration-200 font-semibold text-sm"
                   >
-                    Add
+                    Add to Cart
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ================= PRODUCT DETAIL POPUP ================= */}
-      <AnimatePresence>
-        {detail && (
-          <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex justify-center items-center p-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      {/* PRODUCT POPUP */}
+      {detail && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex justify-center items-center p-6"
+          onClick={() => setDetail(null)}
+        >
+          <div
+            className="bg-stone-900/90 border border-stone-700/50 rounded-2xl p-8 max-w-lg w-full shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              className="bg-white/10 border border-white/20 rounded-3xl p-6 max-w-lg w-full backdrop-blur-xl shadow-2xl relative"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
+            <button
+              onClick={() => setDetail(null)}
+              className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors duration-200"
             >
-              <button
-                onClick={() => setDetail(null)}
-                className="absolute top-4 right-4 text-white"
-              >
-                <X size={28} />
-              </button>
+              <X size={24} />
+            </button>
 
+            <div className="rounded-xl overflow-hidden mb-5">
               <img
                 src={detail.img}
-                className="rounded-xl w-full h-56 object-cover mb-4"
+                alt={detail.name}
+                className="w-full h-64 object-cover"
               />
+            </div>
 
-              <h2 className="text-3xl font-bold">{detail.name}</h2>
-              <p className="text-white/70 mt-2">{detail.desc}</p>
-              <p className="text-xl font-semibold mt-3">{detail.price}</p>
+            <h2 className="text-2xl font-bold text-amber-100 mb-2">
+              {detail.name}
+            </h2>
 
-              {/* Quantity inside popup */}
-              <div className="flex items-center gap-3 mt-4 justify-center">
-                <button
-                  onClick={() => updateQuantity(detail.name, -1)}
-                  className="px-3 py-1 bg-white/20 rounded-lg hover:bg-white/30"
-                >
-                  ➖
-                </button>
+            <p className="text-gray-300 text-sm mb-3">{detail.desc}</p>
+            <p className="text-xl font-bold text-amber-200 mb-5">
+              {detail.price}
+            </p>
 
-                <div className="px-4 py-1 bg-white/20 rounded-lg">
-                  {quantities[detail.name] || 1}
-                </div>
+            {/* SIZE SELECTOR */}
+            <div className="mb-5">
+              <p className="text-sm text-gray-400 mb-3 font-medium">Select Size:</p>
 
-                <button
-                  onClick={() => updateQuantity(detail.name, +1)}
-                  className="px-3 py-1 bg-white/20 rounded-lg hover:bg白/30"
-                >
-                  ➕
-                </button>
+              <div className="flex gap-3">
+                {["S", "M", "L", "XL"].map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`
+                      flex-1 py-2 rounded-lg border font-medium transition-colors duration-200
+                      ${
+                        selectedSize === size
+                          ? "bg-amber-600 text-white border-amber-600"
+                          : "bg-stone-800/50 border-stone-700/50 text-gray-300 hover:bg-stone-800/70"
+                      }
+                    `}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* QUANTITY */}
+            <div className="flex items-center gap-4 mb-6 justify-center">
+              <button
+                onClick={() => updateQuantity(detail.name, -1)}
+                className="w-10 h-10 bg-stone-800/50 border border-stone-700/50 rounded-lg hover:bg-stone-800/70 transition-colors duration-200 flex items-center justify-center"
+              >
+                −
+              </button>
+
+              <div className="w-16 h-10 bg-stone-800/50 border border-stone-700/50 rounded-lg flex items-center justify-center font-semibold">
+                {quantities[detail.name] || 1}
               </div>
 
               <button
-                onClick={() => setCartOpen(true)}
-                className="mt-6 w-full py-3 bg-orange-500 rounded-xl font-semibold hover:bg-orange-600"
+                onClick={() => updateQuantity(detail.name, 1)}
+                className="w-10 h-10 bg-stone-800/50 border border-stone-700/50 rounded-lg hover:bg-stone-800/70 transition-colors duration-200 flex items-center justify-center"
               >
-                Add to Cart
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ================= CART DRAWER ================= */}
-      <AnimatePresence>
-        {cartOpen && (
-          <motion.div
-            className="fixed top-0 right-0 h-full w-80 bg-white/10 backdrop-blur-xl border-l border-white/30 shadow-2xl z-50 p-6"
-            initial={{ x: 300 }}
-            animate={{ x: 0 }}
-            exit={{ x: 300 }}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-white">Your Cart</h2>
-              <button onClick={() => setCartOpen(false)} className="text-white">
-                <X size={28} />
+                +
               </button>
             </div>
 
-            <p className="text-white/70 mt-8">
-              Cart system can be implemented with backend / database.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <button
+              onClick={() => {
+                setCartOpen(true);
+                setDetail(null);
+              }}
+              className="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold transition-colors duration-200"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      )}
 
-      {/* ================= FOOTER ================= */}
-      <footer className="text-center py-10 text-white/70">
-        © 2025 Veshalla Mountain Market — Made with nature 🌿
+      {/* CART DRAWER */}
+      {cartOpen && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            onClick={() => setCartOpen(false)}
+          />
+          <div className="fixed top-0 right-0 h-full w-full max-w-md bg-stone-900 border-l border-stone-700/50 shadow-2xl z-50 p-6 overflow-y-auto">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-amber-100">Your Cart</h2>
+              <button
+                onClick={() => setCartOpen(false)}
+                className="text-gray-400 hover:text-white transition-colors duration-200"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="bg-stone-800/50 border border-stone-700/50 rounded-lg p-6 text-center">
+              <p className="text-gray-400">
+                Your cart is empty. Add some products to get started!
+              </p>
+              <p className="text-gray-500 text-sm mt-3">
+                Cart functionality coming soon.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* FOOTER */}
+      <footer className="text-center py-12 text-gray-500 relative z-10">
+        © 2025 Veshalla T-Shirts — Made with pride 🏔️
       </footer>
     </div>
   );
