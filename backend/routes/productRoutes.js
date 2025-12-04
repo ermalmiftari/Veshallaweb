@@ -16,17 +16,20 @@ router.get("/", async (req, res) => {
       GROUP BY p.id;
     `);
 
-    const products = rows.map((item: any) => ({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-      sizes: item.sizes ? item.sizes.split(",") : []
-    }));
+    // rows is a plain array in JS; remove the ": any" TypeScript type
+    const products = Array.isArray(rows)
+      ? rows.map((item) => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          sizes: item.sizes ? String(item.sizes).split(",") : [],
+        }))
+      : [];
 
     res.json(products);
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching products:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
