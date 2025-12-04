@@ -130,6 +130,14 @@ export default function Member() {
   const price = isMacedonia ? 10 : 100;
   const currency = "EUR"; // 10 EUR for MK, 100 EUR for others
 
+<<<<<<< HEAD
+  const { price, currency, label } = prices[location];
+
+  const handleChange = (field, val) =>
+    setFormData((prev) => ({ ...prev, [field]: val }));
+
+  const handleSubmit = async (e) => {
+=======
   const handleChange = (field: keyof typeof formData, val: string) =>
     setFormData((prev) => ({ ...prev, [field]: val }));
 
@@ -137,6 +145,7 @@ export default function Member() {
   // SUBMIT (Create member + Stripe payment)
   // ---------------------------------------
   const handleSubmit = async (e: React.FormEvent) => {
+>>>>>>> 5c904c8db1d0a2d56a2794000c5baf829a730414
     e.preventDefault();
 
     if (
@@ -170,6 +179,14 @@ export default function Member() {
       const data = await res.json();
 
       if (!res.ok) {
+<<<<<<< HEAD
+        alert(data.error || "Failed to create member");
+      } else {
+        alert("Member saved to DB!");
+      }
+    } catch (err) {
+      alert("Network error");
+=======
         console.error("Create member error:", data);
         alert(data.error || "Failed to create member");
         return;
@@ -201,6 +218,7 @@ export default function Member() {
     } catch (error) {
       console.error("Network or server error:", error);
       alert("Network error. Please try again.");
+>>>>>>> 5c904c8db1d0a2d56a2794000c5baf829a730414
     }
   };
 
@@ -275,7 +293,12 @@ export default function Member() {
   return (
     <div
       className="
+<<<<<<< HEAD
+        min-h-screen relative 
+        px-4 sm:px-6 py-10 
+=======
         min-h-screen relative px-4 sm:px-6 py-10 
+>>>>>>> 5c904c8db1d0a2d56a2794000c5baf829a730414
         text-white flex flex-col
       "
       style={{
@@ -283,19 +306,38 @@ export default function Member() {
           "linear-gradient(to bottom, #0f0f0f 0%, #121712 45%, #0e1712 100%)",
       }}
     >
+<<<<<<< HEAD
+      {/* ORANGE GLOW */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,140,60,0.25),transparent_70%)] pointer-events-none" />
+
+      {/* FOREST GLOW */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(60,100,70,0.20),transparent_80%)] pointer-events-none" />
+
+      {/* 🔙 SIMPLE HOME BUTTON */}
+      <div className="relative z-10 mb-6">
+        <Link
+          to="/"
+          className="
+            flex items-center gap-1
+            text-amber-300 hover:text-amber-200 
+            text-sm sm:text-base 
+            font-medium transition
+          "
+=======
       {/* HOME BUTTON */}
       <div className="relative z-10 mb-6">
         <Link
           to="/"
           className="flex items-center gap-2 text-amber-300 hover:text-amber-200 text-sm sm:text-base font-medium transition"
+>>>>>>> 5c904c8db1d0a2d56a2794000c5baf829a730414
         >
-          <span className="text-lg">⛰️</span> Home
+          ← <span>Home</span>
         </Link>
       </div>
 
       {/* HEADER */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-        <p className="text-xs tracking-[0.25em] text-amber-200/80 mb-1">
+        <p className="text-[10px] sm:text-xs tracking-[0.25em] text-amber-200/80 mb-1">
           COMMUNITY
         </p>
 
