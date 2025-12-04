@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function Home(): JSX.Element {
@@ -12,7 +12,7 @@ export default function Home(): JSX.Element {
   const navigate = useNavigate();
   const activeLang = lang || "en";
 
-  // GALLERY IMAGES – all 29 photos
+  // ALL 29 PHOTOS
   const gallery = [
     "/WhatsApp Image 2025-12-01 at 22.02.38 (3).jpeg",
     "/WhatsApp Image 2025-12-01 at 22.02.38.jpeg",
@@ -47,20 +47,16 @@ export default function Home(): JSX.Element {
 
   const currentImage = lightboxIndex !== null ? gallery[lightboxIndex] : null;
 
-  // Keyboard navigation for gallery
+  // KEYBOARD ARROWS
   useEffect(() => {
     if (lightboxIndex === null) return;
 
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
-        setLightboxIndex((prev) =>
-          prev === null ? null : (prev + 1) % gallery.length
-        );
+        setLightboxIndex((i) => (i! + 1) % gallery.length);
       }
       if (e.key === "ArrowLeft") {
-        setLightboxIndex((prev) =>
-          prev === null ? null : (prev - 1 + gallery.length) % gallery.length
-        );
+        setLightboxIndex((i) => (i! - 1 + gallery.length) % gallery.length);
       }
       if (e.key === "Escape") {
         setLightboxIndex(null);
@@ -74,7 +70,7 @@ export default function Home(): JSX.Element {
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-100 text-slate-900">
 
-      {/* NAVBAR */}
+      {/* ========== NAVIGATION ========== */}
       <nav className="fixed left-0 right-0 z-50 mx-auto max-w-7xl px-4 py-3">
         <motion.div
           initial={{ y: -60, opacity: 0 }}
@@ -83,16 +79,13 @@ export default function Home(): JSX.Element {
           className="flex items-center justify-between rounded-2xl bg-emerald-900/70 backdrop-blur-xl px-4 py-2 shadow-xl border border-amber-400/40"
         >
           <button className="flex items-center gap-3 text-white">
-            <div className="rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-2 shadow-lg">
-              ⛰️
-            </div>
+            <div className="rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-2 shadow-lg">⛰️</div>
             <div className="hidden sm:block">
               <div className="font-bold text-amber-200">Veshalla</div>
               <div className="text-xs text-white/70">Mountain Village</div>
             </div>
           </button>
 
-          {/* NAV LINKS */}
           <div className="hidden sm:flex items-center gap-6 text-sm">
             <button onClick={() => document.getElementById("about")?.scrollIntoView()} className="text-amber-100 hover:text-amber-300">About</button>
             <button onClick={() => document.getElementById("things")?.scrollIntoView()} className="text-amber-100 hover:text-amber-300">Experiences</button>
@@ -106,7 +99,7 @@ export default function Home(): JSX.Element {
         </motion.div>
       </nav>
 
-      {/* HERO */}
+      {/* HERO SECTION */}
       <header
         className="relative min-h-screen text-white flex items-center justify-center text-center px-6"
         style={{
@@ -127,63 +120,75 @@ export default function Home(): JSX.Element {
           </p>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <button
-              onClick={() => navigate(`/${activeLang}/shop`)}
-              className="px-6 py-3 bg-gradient-to-br from-white to-orange-100 text-emerald-900 font-semibold rounded-lg shadow-lg hover:scale-105 transition"
-            >
-              🛒 Shop
-            </button>
-
-            <button
-              onClick={() => navigate(`/${activeLang}/member`)}
-              className="px-6 py-3 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:scale-105 transition"
-            >
-              👤 Membership
-            </button>
-
-            <button
-              onClick={() => navigate(`/${activeLang}/camera`)}
-              className="px-6 py-3 bg-white text-red-600 border border-red-500 font-semibold rounded-lg shadow-lg hover:scale-105 transition flex items-center gap-2"
-            >
-              🔴 Live
-            </button>
+            <button onClick={() => navigate(`/${activeLang}/shop`)} className="px-6 py-3 bg-white text-emerald-900 rounded-lg shadow hover:scale-105 transition">🛒 Shop</button>
+            <button onClick={() => navigate(`/${activeLang}/member`)} className="px-6 py-3 bg-emerald-600 text-white rounded-lg shadow hover:scale-105 transition">👤 Membership</button>
+            <button onClick={() => navigate(`/${activeLang}/camera`)} className="px-6 py-3 bg-white text-red-600 border border-red-500 rounded-lg shadow hover:scale-105 transition flex items-center gap-2">🔴 Live</button>
           </div>
         </div>
       </header>
 
-      {/* ABOUT */}
-      <section id="about" className="py-16 bg-orange-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-emerald-900 mb-3">About Veshalla</h2>
+      {/* ABOUT SECTION (VERSION A) */}
+      <section id="about" className="bg-gradient-to-b from-orange-50 via-emerald-50 to-orange-50 py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="inline-block px-4 py-1 bg-amber-200 text-emerald-900 rounded-full text-sm font-semibold mb-4">
+            ABOUT VESHALLA
+          </div>
+
+          <h2 className="text-4xl font-bold text-emerald-900 mb-4">
+            A small village with a global family
+          </h2>
+
+          <div className="w-20 h-1 bg-gradient-to-r from-amber-500 to-emerald-500 rounded-full mb-6" />
+
+          <p className="text-slate-800 mb-3">
+            Veshalla is one of the highest villages in the Šar Mountains – a quiet place surrounded by forests, streams, and clean mountain air.
+          </p>
+
+          <p className="text-slate-800 mb-3">
+            Although only a small number of people live in the village today, the community is spread across Switzerland, Germany, and many other countries. Wherever they are, people still call Veshalla their home.
+          </p>
+
           <p className="text-slate-800">
-            Veshalla is one of the highest villages in the Šar Mountains — surrounded by forests, streams, and clean air.
-            The community is spread across Switzerland, Germany, Italy, and the USA, yet the heart of every family still belongs here.
+            This website connects everyone: locals, visitors, and the diaspora – through live views of the village, community membership, and products that support Veshalla’s future.
           </p>
         </div>
       </section>
 
       {/* EXPERIENCES */}
-      <section id="things" className="py-16 bg-emerald-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-emerald-900 mb-6">Experiences</h2>
-          <p className="text-slate-800">
-            Enjoy hiking, waterfalls, tea with locals, and the peaceful mountain atmosphere.
-          </p>
+      <section id="things" className="py-16 px-6 bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-emerald-900 mb-6">Hike • Taste • Explore</h2>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              { t: "Trail to Upper Meadow", d: "A gentle hike with wide views over the valley and Šar Mountains.", icon: "🥾" },
+              { t: "Village Food & Tea", d: "Local cheese, honey, and herbal tea prepared in family homes.", icon: "🧀" },
+              { t: "Forest & Waterfalls", d: "Quiet walks along the river and small waterfalls above the village.", icon: "💧" },
+            ].map((item, i) => (
+              <div key={i} className="rounded-3xl p-7 bg-white/90 backdrop-blur border border-amber-200 shadow hover:shadow-lg">
+                <div className="text-3xl mb-4 bg-gradient-to-br from-amber-400 to-emerald-400 w-12 h-12 rounded-2xl flex items-center justify-center">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-emerald-900 mb-2">{item.t}</h3>
+                <p className="text-slate-700">{item.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* GALLERY */}
-      <section id="gallery" className="py-16 bg-gradient-to-b from-orange-50 to-emerald-50">
-        <div className="max-w-6xl mx-auto px-6">
+      <section id="gallery" className="py-16 bg-gradient-to-b from-orange-50 to-emerald-50 px-6">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-emerald-900 mb-6">Gallery</h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {gallery.slice(0, visibleCount).map((src, i) => (
-              <motion.img
-                key={src + i}
+              <img
+                key={i}
                 src={src}
                 onClick={() => setLightboxIndex(i)}
-                className="rounded-xl object-cover h-40 sm:h-48 md:h-56 w-full shadow-md cursor-pointer hover:scale-[1.03] transition"
+                className="rounded-xl object-cover h-40 sm:h-48 md:h-56 w-full cursor-pointer shadow hover:scale-[1.03] transition"
               />
             ))}
           </div>
@@ -201,58 +206,71 @@ export default function Home(): JSX.Element {
         </div>
       </section>
 
-      {/* LIGHTBOX */}
+      {/* LIGHTBOX WITH PREMIUM FLOATING ARROWS (STYLE A) */}
       <AnimatePresence>
-        {currentImage && lightboxIndex !== null && (
+        {lightboxIndex !== null && currentImage && (
           <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-[100]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setLightboxIndex(null)}
           >
-            <img
+            {/* LEFT ARROW */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((i) => (i! - 1 + gallery.length) % gallery.length);
+              }}
+              className="absolute left-4 sm:left-10 top-1/2 -translate-y-1/2 text-white p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur transition"
+            >
+              <ChevronLeft size={40} />
+            </button>
+
+            {/* IMAGE */}
+            <motion.img
               src={currentImage}
               className="max-h-[80vh] w-auto rounded-2xl shadow-xl border border-white"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
             />
+
+            {/* RIGHT ARROW */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIndex((i) => (i! + 1) % gallery.length);
+              }}
+              className="absolute right-4 sm:right-10 top-1/2 -translate-y-1/2 text-white p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur transition"
+            >
+              <ChevronRight size={40} />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* SPONSORS — with ANIMATION C (Pulse Glow) */}
-      <section
-        id="sponsors"
-        className="py-16 bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-50"
-      >
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      {/* SPONSORS */}
+      <section id="sponsors" className="py-16 bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-50 px-6">
+        <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-emerald-900 mb-6">Our Sponsors</h2>
 
-          <p className="text-slate-800 text-sm sm:text-base mb-8">
+          <p className="text-slate-800 text-base mb-8">
             Thank you to all supporters who help keep Veshalla alive.
           </p>
 
-          {/* 🔥 Premium Glow Animation */}
           <motion.div
-            animate={{
-              boxShadow: [
-                "0 0 0px rgba(251,191,36,0)",
-                "0 0 22px rgba(251,191,36,0.6)",
-                "0 0 0px rgba(251,191,36,0)",
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              repeatType: "mirror",
-            }}
-            className="rounded-2xl overflow-hidden border border-amber-300 shadow-xl"
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="rounded-2xl overflow-hidden shadow-lg border border-amber-200"
           >
-            <img
-              src="/1.png"
-              className="w-full h-auto object-contain"
-              alt="Sponsors"
-            />
+            <img src="/1.png" className="w-full h-auto object-contain" />
           </motion.div>
         </div>
       </section>
-
     </div>
   );
 }
