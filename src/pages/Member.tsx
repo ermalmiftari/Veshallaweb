@@ -134,7 +134,7 @@ export default function Member() {
     setFormData((prev) => ({ ...prev, [field]: val }));
 
   // ---------------------------------------
-  // SUBMIT (Create member + start payment)
+  // SUBMIT (Create member + Stripe payment)
   // ---------------------------------------
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -151,6 +151,7 @@ export default function Member() {
     }
 
     try {
+      // 1) Create member in DB
       const res = await fetch(`${BASE_URL}/api/members`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -175,35 +176,27 @@ export default function Member() {
 
       const createdMemberId = data.id;
 
-      // Payment step (to be wired later)
-      // const payRes = await fetch(`${BASE_URL}/api/payments/create-session`, {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     memberId: createdMemberId,
-      //     amount: price,
-      //     currency,
-      //   }),
-      // });
-      // const payData = await payRes.json();
-      // if (!payRes.ok) {
-      //   console.error("Payment session error:", payData);
-      //   alert(payData.error || "Failed to start payment.");
-      //   return;
-      // }
-      // window.location.href = payData.url;
-
-      alert("Member saved to DB! (Payment step to be connected next.)");
-
-      setFormData({
-        name: "",
-        surname: "",
-        phone: "",
-        email: "",
-        address: "",
+      // 2) Create Stripe Checkout session
+      const payRes = await fetch(`${BASE_URL}/api/payments/create-session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          memberId: createdMemberId,
+          amount: price, // 10 or 100
+          currency,      // "EUR"
+        }),
       });
-      setLocation("mk");
-      setPhoneCountry("mk");
+
+      const payData = await payRes.json();
+
+      if (!payRes.ok) {
+        console.error("Payment session error:", payData);
+        alert(payData.error || "Failed to start payment.");
+        return;
+      }
+
+      // 3) Redirect to Stripe Checkout
+      window.location.href = payData.url;
     } catch (error) {
       console.error("Network or server error:", error);
       alert("Network error. Please try again.");
