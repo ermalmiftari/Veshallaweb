@@ -27,11 +27,10 @@ export default function Member() {
 
   const { price, currency, label } = prices[location];
 
-  const handleChange = (field: string, val: string) =>
+  const handleChange = (field, val) =>
     setFormData((prev) => ({ ...prev, [field]: val }));
 
-  // NEW BACKEND CONNECTED SUBMIT
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -49,14 +48,11 @@ export default function Member() {
       const data = await res.json();
 
       if (!res.ok) {
-        console.error(data);
         alert(data.error || "Failed to create member");
       } else {
-        console.log("Member created:", data);
         alert("Member saved to DB!");
       }
     } catch (err) {
-      console.error(err);
       alert("Network error");
     }
   };
@@ -64,8 +60,9 @@ export default function Member() {
   return (
     <div
       className="
-      min-h-screen relative px-4 sm:px-6 py-10 
-      text-white flex flex-col
+        min-h-screen relative 
+        px-4 sm:px-6 py-10 
+        text-white flex flex-col
       "
       style={{
         background:
@@ -78,24 +75,24 @@ export default function Member() {
       {/* FOREST GLOW */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(60,100,70,0.20),transparent_80%)] pointer-events-none" />
 
-      {/* CLEAN HOME BUTTON */}
+      {/* 🔙 SIMPLE HOME BUTTON */}
       <div className="relative z-10 mb-6">
         <Link
           to="/"
           className="
-            flex items-center gap-2
+            flex items-center gap-1
             text-amber-300 hover:text-amber-200 
             text-sm sm:text-base 
             font-medium transition
           "
         >
-          <span className="text-lg">⛰️</span> Home
+          ← <span>Home</span>
         </Link>
       </div>
 
       {/* HEADER */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-        <p className="text-xs tracking-[0.25em] text-amber-200/80 mb-1">
+        <p className="text-[10px] sm:text-xs tracking-[0.25em] text-amber-200/80 mb-1">
           COMMUNITY
         </p>
 
