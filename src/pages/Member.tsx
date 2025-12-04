@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Backend base URL:
-// - On localhost: use http://localhost:4000
-// - On production (veshalla.info over HTTPS): use same origin (empty string)
-const BASE_URL =
-  window.location.hostname === "localhost" ? "http://localhost:4000" : "";
+// - On localhost / 127.0.0.1 → http://localhost:4000
+// - On production (veshalla.info over HTTPS) → same origin (empty string)
+const isLocalhost =
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1";
+
+const BASE_URL = isLocalhost ? "http://localhost:4000" : "";
 
 export default function Member() {
   // ---------------------------------------
@@ -136,7 +139,6 @@ export default function Member() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Frontend validation to match backend required fields
     if (
       !formData.name.trim() ||
       !formData.surname.trim() ||
@@ -149,7 +151,6 @@ export default function Member() {
     }
 
     try {
-      // 1) CREATE MEMBER (via HTTPS /api on production)
       const res = await fetch(`${BASE_URL}/api/members`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -159,7 +160,7 @@ export default function Member() {
           phone: formData.phone,
           email: formData.email,
           address: formData.address,
-          location, // "mk", "albania", etc.
+          location,
           membership_type: isMacedonia ? "standard" : "diaspora",
         }),
       });
@@ -172,12 +173,9 @@ export default function Member() {
         return;
       }
 
-      // At this point, member is stored in DB (matches your backend).
       const createdMemberId = data.id;
 
-      // 2) PAYMENT STEP (plug your real endpoint here later)
-      // Example (when you have it ready in backend):
-      //
+      // Payment step (to be wired later)
       // const payRes = await fetch(`${BASE_URL}/api/payments/create-session`, {
       //   method: "POST",
       //   headers: { "Content-Type": "application/json" },
@@ -187,21 +185,16 @@ export default function Member() {
       //     currency,
       //   }),
       // });
-      //
       // const payData = await payRes.json();
-      //
       // if (!payRes.ok) {
       //   console.error("Payment session error:", payData);
       //   alert(payData.error || "Failed to start payment.");
       //   return;
       // }
-      //
       // window.location.href = payData.url;
 
-      // TEMPORARY: confirm member creation
       alert("Member saved to DB! (Payment step to be connected next.)");
 
-      // Optional: reset form
       setFormData({
         name: "",
         surname: "",
@@ -217,7 +210,6 @@ export default function Member() {
     }
   };
 
-  // Helper to render options (used in location select)
   const renderCountryOptions = () => (
     <>
       <option value="mk">🇲🇰 North Macedonia</option>
@@ -286,9 +278,6 @@ export default function Member() {
     </>
   );
 
-  // ---------------------------------------
-  // UI
-  // ---------------------------------------
   return (
     <div
       className="
