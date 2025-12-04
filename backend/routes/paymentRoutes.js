@@ -6,7 +6,6 @@ const paymentController = require("../controllers/paymentController");
 // Create Stripe Checkout session
 router.post("/create-session", paymentController.createCheckoutSession);
 
-// Webhook (this route will be mounted with express.raw in server.js)
-router.post("/webhook", paymentController.handleWebhook);
+// Do NOT define /webhook here. It is handled directly in server.js with raw body.
 
 module.exports = router;

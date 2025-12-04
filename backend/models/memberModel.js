@@ -59,7 +59,8 @@ async function update(id, data) {
     "membership_type",
     "is_active",
     "stripe_session_id",
-    "stripe_payment_status"
+    "stripe_payment_status",
+    "membership_code" 
   ];
 
   for (const key of allowed) {

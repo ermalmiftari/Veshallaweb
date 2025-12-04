@@ -162,7 +162,8 @@ export default function Member() {
           email: formData.email,
           address: formData.address,
           location,
-          membership_type: isMacedonia ? "standard" : "diaspora",
+          // Use enum values that exist in DB: 'standard', 'premium', 'vip'
+          membership_type: isMacedonia ? "standard" : "premium",
         }),
       });
 
@@ -183,7 +184,7 @@ export default function Member() {
         body: JSON.stringify({
           memberId: createdMemberId,
           amount: price, // 10 or 100
-          currency,      // "EUR"
+          currency, // "EUR"
         }),
       });
 
