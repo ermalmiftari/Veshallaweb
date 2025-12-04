@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Backend base URL:
-// - On localhost / 127.0.0.1 → http://localhost:4000
-// - On production (veshalla.info over HTTPS) → same origin (empty string)
+// - When running frontend on localhost → talk to local backend on http://localhost:4000
+// - When running on production domain (veshalla.info) → same origin (empty string)
 const isLocalhost =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1";
