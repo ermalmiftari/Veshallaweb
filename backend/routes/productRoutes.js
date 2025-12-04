@@ -1,10 +1,34 @@
-const express = require("express");
-const router = express.Router();
-const productController = require("../controllers/productController");
+import { Router } from "express";
+import db from "../db"; // where your MySQL connection is defined
 
-// /api/products
-router.get("/", productController.getProducts);
-router.get("/:id", productController.getProductById);
-router.get("/:id/variant", productController.getVariantStock);
+const router = Router();
 
-module.exports = router;
+// GET /api/products
+router.get("/", async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT p.id, p.name, p.price,
+             (SELECT image_url FROM product_images WHERE product_id = p.id LIMIT 1) AS image,
+             GROUP_CONCAT(s.size_name) AS sizes
+      FROM products p
+      JOIN product_sizes ps ON p.id = ps.product_id
+      JOIN sizes s ON ps.size_id = s.id
+      GROUP BY p.id;
+    `);
+
+    const products = rows.map((item: any) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      sizes: item.sizes ? item.sizes.split(",") : []
+    }));
+
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+export default router;
