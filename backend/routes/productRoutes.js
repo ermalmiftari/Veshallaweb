@@ -1,5 +1,5 @@
 import { Router } from "express";
-import db from "../config/db"; // where your MySQL connection is defined
+import db from "../config/db.js"; // where your MySQL connection is defined
 
 const router = Router();
 
