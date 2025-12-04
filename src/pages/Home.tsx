@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function Home(): JSX.Element {
+export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState(4);
@@ -13,7 +13,6 @@ export default function Home(): JSX.Element {
   const navigate = useNavigate();
   const activeLang = lang || "en";
 
-  // GALLERY IMAGES – all 29 photos
   const gallery = [
     "/WhatsApp Image 2025-12-01 at 22.02.38 (3).jpeg",
     "/WhatsApp Image 2025-12-01 at 22.02.38.jpeg",
@@ -48,20 +47,15 @@ export default function Home(): JSX.Element {
 
   const currentImage = lightboxIndex !== null ? gallery[lightboxIndex] : null;
 
-  // Keyboard navigation for gallery
   useEffect(() => {
     if (lightboxIndex === null) return;
 
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") {
-        setLightboxIndex((prev) =>
-          prev === null ? null : (prev + 1) % gallery.length
-        );
+        setLightboxIndex((prev) => (prev === null ? null : (prev + 1) % gallery.length));
       }
       if (e.key === "ArrowLeft") {
-        setLightboxIndex((prev) =>
-          prev === null ? null : (prev - 1 + gallery.length) % gallery.length
-        );
+        setLightboxIndex((prev) => (prev === null ? null : (prev - 1 + gallery.length) % gallery.length));
       }
       if (e.key === "Escape") {
         setLightboxIndex(null);
@@ -70,10 +64,11 @@ export default function Home(): JSX.Element {
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [lightboxIndex, gallery.length]);
+  }, [lightboxIndex]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-100 text-slate-900">
+
       {/* NAVBAR */}
       <nav className="fixed left-0 right-0 z-50 mx-auto max-w-7xl px-4 py-3">
         <motion.div
@@ -83,41 +78,18 @@ export default function Home(): JSX.Element {
           className="flex items-center justify-between rounded-2xl bg-emerald-900/70 backdrop-blur-xl px-4 py-2 shadow-xl border border-amber-400/40"
         >
           <button className="flex items-center gap-3 text-white">
-            <div className="rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-2 shadow-lg">
-              ⛰️
-            </div>
+            <div className="rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-2 shadow-lg">⛰️</div>
             <div className="hidden sm:block">
               <div className="font-bold text-amber-200">Veshalla</div>
               <div className="text-xs text-white/70">Mountain Village</div>
             </div>
           </button>
 
-          {/* NAV LINKS */}
           <div className="hidden sm:flex items-center gap-6 text-sm">
-            <button
-              onClick={() => document.getElementById("about")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              About
-            </button>
-            <button
-              onClick={() => document.getElementById("things")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Experiences
-            </button>
-            <button
-              onClick={() => document.getElementById("gallery")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Gallery
-            </button>
-            <button
-              onClick={() => document.getElementById("sponsors")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Sponsors
-            </button>
+            <button onClick={() => document.getElementById("about")?.scrollIntoView()} className="text-amber-100 hover:text-amber-300">About</button>
+            <button onClick={() => document.getElementById("things")?.scrollIntoView()} className="text-amber-100 hover:text-amber-300">Experiences</button>
+            <button onClick={() => document.getElementById("gallery")?.scrollIntoView()} className="text-amber-100 hover:text-amber-300">Gallery</button>
+            <button onClick={() => document.getElementById("sponsors")?.scrollIntoView()} className="text-amber-100 hover:text-amber-300">Sponsors</button>
           </div>
 
           <button className="sm:hidden" onClick={() => setMenuOpen(true)}>
@@ -138,36 +110,13 @@ export default function Home(): JSX.Element {
         <div className="absolute inset-0 bg-black/60" />
 
         <div className="relative z-10 max-w-3xl">
-          <h1 className="text-5xl sm:text-6xl font-extrabold drop-shadow-lg mb-4">
-            Welcome to Veshalla
-          </h1>
-
-          <p className="text-lg sm:text-xl mb-8 text-white/90">
-            A mountain village above the clouds loved by people across the
-            world.
-          </p>
+          <h1 className="text-5xl sm:text-6xl font-extrabold drop-shadow-lg mb-4">Welcome to Veshalla</h1>
+          <p className="text-lg sm:text-xl mb-8 text-white/90">A mountain village above the clouds loved by people across the world.</p>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <button
-              onClick={() => navigate(`/${activeLang}/shop`)}
-              className="px-6 py-3 bg-gradient-to-br from-white to-orange-100 text-emerald-900 font-semibold rounded-lg shadow-lg hover:scale-105 transition"
-            >
-              🛒 Shop
-            </button>
-
-            <button
-              onClick={() => navigate(`/${activeLang}/member`)}
-              className="px-6 py-3 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:scale-105 transition"
-            >
-              👤 Membership
-            </button>
-
-            <button
-              onClick={() => navigate(`/${activeLang}/camera`)}
-              className="px-6 py-3 bg-white text-red-600 border border-red-500 font-semibold rounded-lg shadow-lg hover:scale-105 transition flex items-center gap-2"
-            >
-              🔴 Live
-            </button>
+            <button onClick={() => navigate(`/${activeLang}/shop`)} className="px-6 py-3 bg-gradient-to-br from-white to-orange-100 text-emerald-900 font-semibold rounded-lg shadow-lg hover:scale-105 transition">🛒 Shop</button>
+            <button onClick={() => navigate(`/${activeLang}/member`)} className="px-6 py-3 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-semibold rounded-lg shadow-lg hover:scale-105 transition">👤 Membership</button>
+            <button onClick={() => navigate(`/${activeLang}/camera`)} className="px-6 py-3 bg-white text-red-600 border border-red-500 font-semibold rounded-lg shadow-lg hover:scale-105 transition flex items-center gap-2">🔴 Live</button>
           </div>
         </div>
       </header>
@@ -175,36 +124,21 @@ export default function Home(): JSX.Element {
       {/* ABOUT */}
       <section id="about" className="py-16 bg-orange-50">
         <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-emerald-900 mb-3">
-            About Veshalla
-          </h2>
-          <p className="text-slate-800">
-            Veshalla is one of the highest villages in the Šar Mountains —
-            surrounded by forests, streams, and clean air. The community is
-            spread across Switzerland, Germany, Italy, and the USA, yet the
-            heart of every family still belongs here.
-          </p>
+          <h2 className="text-4xl font-bold text-emerald-900 mb-3">About Veshalla</h2>
+          <p className="text-slate-800">Veshalla is one of the highest villages in the Šar Mountains—surrounded by forests, streams, and clean air.</p>
         </div>
       </section>
 
       {/* EXPERIENCES */}
       <section id="things" className="py-16 bg-emerald-50">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-emerald-900 mb-6">
-            Experiences
-          </h2>
-          <p className="text-slate-800">
-            Enjoy hiking, waterfalls, tea with locals, and the peaceful mountain
-            atmosphere.
-          </p>
+          <h2 className="text-4xl font-bold text-emerald-900 mb-6">Experiences</h2>
+          <p className="text-slate-800">Enjoy hiking, waterfalls, tea with locals, and the peaceful mountain atmosphere.</p>
         </div>
       </section>
 
       {/* GALLERY */}
-      <section
-        id="gallery"
-        className="py-16 bg-gradient-to-b from-orange-50 to-emerald-50"
-      >
+      <section id="gallery" className="py-16 bg-gradient-to-b from-orange-50 to-emerald-50">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-4xl font-bold text-emerald-900 mb-6">Gallery</h2>
 
@@ -215,7 +149,6 @@ export default function Home(): JSX.Element {
                 src={src}
                 onClick={() => setLightboxIndex(i)}
                 className="rounded-xl object-cover h-40 sm:h-48 md:h-56 w-full shadow-md cursor-pointer hover:scale-[1.03] transition"
-                whileHover={{ scale: 1.03 }}
               />
             ))}
           </div>
@@ -223,9 +156,7 @@ export default function Home(): JSX.Element {
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             {visibleCount < gallery.length && (
               <button
-                onClick={() =>
-                  setVisibleCount((v) => Math.min(v + 4, gallery.length))
-                }
+                onClick={() => setVisibleCount((v) => Math.min(v + 4, gallery.length))}
                 className="px-5 py-3 bg-emerald-700 text-white rounded-lg shadow hover:bg-emerald-800"
               >
                 Show more photos
@@ -242,9 +173,9 @@ export default function Home(): JSX.Element {
         </div>
       </section>
 
-      {/* LIGHTBOX (single image) */}
+      {/* LIGHTBOX */}
       <AnimatePresence>
-        {currentImage && lightboxIndex !== null && (
+        {currentImage && (
           <motion.div
             className="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-50"
             onClick={() => setLightboxIndex(null)}
@@ -252,39 +183,31 @@ export default function Home(): JSX.Element {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <img
-              src={currentImage}
-              className="max-h-[80vh] w-auto rounded-2xl shadow-xl border border-white"
-            />
+            <img src={currentImage} className="max-h-[80vh] w-auto rounded-2xl shadow-xl border border-white" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* SHOW ALL MODAL (box with all photos) */}
+      {/* SHOW ALL MODAL */}
       <AnimatePresence>
         {showAllModal && (
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur"
+            onClick={() => setShowAllModal(false)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowAllModal(false)}
           >
             <motion.div
               className="relative max-w-6xl w-full max-h-[85vh] bg-white rounded-2xl shadow-2xl p-4 sm:p-6 overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl sm:text-2xl font-bold text-emerald-900">
-                  All Photos
-                </h3>
-                <button
-                  onClick={() => setShowAllModal(false)}
-                  className="rounded-full p-2 hover:bg-slate-100"
-                >
+                <h3 className="text-xl sm:text-2xl font-bold text-emerald-900">All Photos</h3>
+                <button onClick={() => setShowAllModal(false)} className="rounded-full p-2 hover:bg-slate-100">
                   <X className="w-5 h-5 text-slate-700" />
                 </button>
               </div>
@@ -294,11 +217,8 @@ export default function Home(): JSX.Element {
                   <motion.img
                     key={src + "modal" + i}
                     src={src}
-                    onClick={() => {
-                      setLightboxIndex(i);
-                    }}
+                    onClick={() => setLightboxIndex(i)}
                     className="rounded-lg object-cover h-32 sm:h-40 md:h-48 w-full shadow cursor-pointer hover:scale-[1.03] transition"
-                    whileHover={{ scale: 1.03 }}
                   />
                 ))}
               </div>
@@ -307,21 +227,12 @@ export default function Home(): JSX.Element {
         )}
       </AnimatePresence>
 
-      {/* SPONSORS — with ANIMATION C (Pulse Glow) */}
-      <section
-        id="sponsors"
-        className="py-16 bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-50"
-      >
+      {/* SPONSORS */}
+      <section id="sponsors" className="py-16 bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-emerald-900 mb-6">
-            Our Sponsors
-          </h2>
+          <h2 className="text-4xl font-bold text-emerald-900 mb-6">Our Sponsors</h2>
+          <p className="text-slate-800 mb-8">Thank you to all supporters who help keep Veshalla alive.</p>
 
-          <p className="text-slate-800 text-sm sm:text-base mb-8">
-            Thank you to all supporters who help keep Veshalla alive.
-          </p>
-
-          {/* 🔥 Premium Glow Animation */}
           <motion.div
             animate={{
               boxShadow: [
@@ -330,21 +241,14 @@ export default function Home(): JSX.Element {
                 "0 0 0px rgba(251,191,36,0)",
               ],
             }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              repeatType: "mirror",
-            }}
+            transition={{ duration: 4, repeat: Infinity, repeatType: "mirror" }}
             className="rounded-2xl overflow-hidden border border-amber-300 shadow-xl"
           >
-            <img
-              src="/1.png"
-              className="w-full h-auto object-contain"
-              alt="Sponsors"
-            />
+            <img src="/1.png" className="w-full h-auto object-contain" alt="Sponsors" />
           </motion.div>
         </div>
       </section>
+
     </div>
   );
 }
