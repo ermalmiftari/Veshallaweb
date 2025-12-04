@@ -6,7 +6,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2024-06-20", // or latest from Stripe
+  apiVersion: "2024-06-20", // use the version you configured in Stripe
 });
 
 module.exports = stripe;

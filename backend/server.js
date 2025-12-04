@@ -5,11 +5,16 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+// Routes
 const productRoutes = require("./routes/productRoutes");
 const memberRoutes = require("./routes/memberRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+
+// Controllers
 const paymentController = require("./controllers/paymentController");
-require("./config/db"); // initialize DB connection
+
+// Initialize DB connection (mysql2 pool + testConnection)
+require("./config/db");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -39,7 +44,7 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "Veshallaweb API running" });
 });
 
-// Routes
+// API routes
 app.use("/api/products", productRoutes);
 app.use("/api/members", memberRoutes);
 app.use("/api/payments", paymentRoutes);
