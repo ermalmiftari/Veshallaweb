@@ -1,7 +1,8 @@
-import { Router } from "express";
-import db from "../config/db.js"; // where your MySQL connection is defined
+// routes/productRoutes.js
+const express = require("express");
+const db = require("../config/db"); // CommonJS import of the pool
 
-const router = Router();
+const router = express.Router();
 
 // GET /api/products
 router.get("/", async (req, res) => {
@@ -16,7 +17,6 @@ router.get("/", async (req, res) => {
       GROUP BY p.id;
     `);
 
-    // rows is a plain array in JS; remove the ": any" TypeScript type
     const products = Array.isArray(rows)
       ? rows.map((item) => ({
           id: item.id,
@@ -34,4 +34,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
