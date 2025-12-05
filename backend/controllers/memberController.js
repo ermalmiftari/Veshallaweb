@@ -47,7 +47,7 @@ async function createMember(req, res) {
   } catch (err) {
     console.error("Error creating member:", err);
 
-    // TEMP: detailed error – you can simplify this later
+    // Detailed error for debugging
     return res.status(500).json({
       error: "Failed to create member",
       code: err.code,
