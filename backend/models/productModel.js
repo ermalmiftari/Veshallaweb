@@ -1,71 +1,71 @@
-// In-memory products with variants (colors / sizes)
-let products = [
-  {
-    id: 1,
-    slug: "mountain-shirt",
-    name: "Mountain Village T-Shirt",
-    description: "Soft cotton T-shirt with Veshalla Mountain Village print.",
-    basePrice: 1200, // MKD
-    category: "clothes",
-    imageUrl: "/images/products/mountain-shirt.png",
-    options: {
-      colors: ["white", "black", "forest-green"],
-      sizes: ["S", "M", "L", "XL"]
-    },
-    stockByVariant: {
-      "white-S": 10,
-      "white-M": 15,
-      "white-L": 8,
-      "black-M": 20,
-      "black-L": 12,
-      "forest-green-M": 5
-    },
-    isActive: true
-  },
-  {
-    id: 2,
-    slug: "hoodie-village",
-    name: "Mountain Village Hoodie",
-    description: "Warm hoodie, perfect for cold nights in Veshalla.",
-    basePrice: 2200,
-    category: "clothes",
-    imageUrl: "/images/products/hoodie-village.png",
-    options: {
-      colors: ["black", "dark-grey"],
-      sizes: ["S", "M", "L", "XL"]
-    },
-    stockByVariant: {
-      "black-M": 10,
-      "black-L": 10,
-      "dark-grey-M": 7
-    },
-    isActive: true
-  }
-];
+// models/productModel.js
+const pool = require("../config/db");
 
-function getAll(category) {
-  if (!category) return products;
-  return products.filter(
-    (p) => p.category.toLowerCase() === category.toLowerCase()
+/**
+ * Get all products with:
+ * - id
+ * - name
+ * - price
+ * - image (first image from product_images)
+ * - sizes (comma-separated string from sizes table)
+ */
+async function getAll() {
+  const [rows] = await pool.query(
+    `
+    SELECT 
+      p.id,
+      p.name,
+      p.price,
+      (
+        SELECT image_url 
+        FROM product_images 
+        WHERE product_id = p.id 
+        LIMIT 1
+      ) AS image,
+      GROUP_CONCAT(DISTINCT s.size_name ORDER BY s.size_name) AS sizes
+    FROM products p
+    JOIN product_sizes ps ON p.id = ps.product_id
+    JOIN sizes s ON ps.size_id = s.id
+    GROUP BY p.id, p.name, p.price
+    ORDER BY p.id DESC
+    `
   );
+
+  // Return rows as-is; controller will format for frontend if needed
+  return rows;
 }
 
-function getById(id) {
-  return products.find((p) => p.id === id);
-}
+/**
+ * Get single product by ID with same structure.
+ */
+async function getById(id) {
+  const [rows] = await pool.query(
+    `
+    SELECT 
+      p.id,
+      p.name,
+      p.price,
+      p.description,
+      (
+        SELECT image_url 
+        FROM product_images 
+        WHERE product_id = p.id 
+        LIMIT 1
+      ) AS image,
+      GROUP_CONCAT(DISTINCT s.size_name ORDER BY s.size_name) AS sizes
+    FROM products p
+    JOIN product_sizes ps ON p.id = ps.product_id
+    JOIN sizes s ON ps.size_id = s.id
+    WHERE p.id = ?
+    GROUP BY p.id, p.name, p.price, p.description
+    `,
+    [id]
+  );
 
-function getVariantStock(id, color, size) {
-  const product = getById(id);
-  if (!product) return null;
-
-  const key = `${color}-${size}`;
-  const stock = product.stockByVariant[key] ?? 0;
-
-  return { product, color, size, stock };
+  return rows[0] || null;
 }
 
 module.exports = {
   getAll,
   getById,
-  getVariantStock
 };

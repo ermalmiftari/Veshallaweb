@@ -1,42 +1,65 @@
+// controllers/productController.js
 const Product = require("../models/productModel");
 
-exports.getProducts = (req, res) => {
-  const { category } = req.query;
-  const products = Product.getAll(category);
-  res.json(products);
-};
+// GET /api/products
+async function getProducts(req, res) {
+  try {
+    const rows = await Product.getAll();
 
-exports.getProductById = (req, res) => {
-  const id = Number(req.params.id);
-  const product = Product.getById(id);
+    // Shape it to match your Shop component expectations
+    const products = rows.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: Number(item.price),
+      desc: item.description || "Veshalla merch",
+      image: item.image, // e.g. "/images/products/mountain-shirt.png"
+      sizes: item.sizes ? String(item.sizes).split(",") : ["S", "M", "L", "XL"],
+    }));
 
-  if (!product) {
-    return res.status(404).json({ error: "Product not found" });
+    return res.json(products);
+  } catch (err) {
+    console.error("Error getting products:", err);
+    return res.status(500).json({
+      error: "Failed to fetch products",
+      code: err.code,
+      message: err.message,
+      sqlMessage: err.sqlMessage,
+    });
   }
+}
 
-  res.json(product);
-};
+// GET /api/products/:id
+async function getProductById(req, res) {
+  try {
+    const id = Number(req.params.id);
+    const item = await Product.getById(id);
 
-exports.getVariantStock = (req, res) => {
-  const id = Number(req.params.id);
-  const { color, size } = req.query;
+    if (!item) {
+      return res.status(404).json({ error: "Product not found" });
+    }
 
-  if (!color || !size) {
-    return res
-      .status(400)
-      .json({ error: "color and size query parameters are required" });
+    const product = {
+      id: item.id,
+      name: item.name,
+      price: Number(item.price),
+      desc: item.description || "Veshalla merch",
+      image: item.image,
+      sizes: item.sizes ? String(item.sizes).split(",") : ["S", "M", "L", "XL"],
+    };
+
+    return res.json(product);
+  } catch (err) {
+    console.error("Error getting product by id:", err);
+    return res.status(500).json({
+      error: "Failed to fetch product",
+      code: err.code,
+      message: err.message,
+      sqlMessage: err.sqlMessage,
+    });
   }
+}
 
-  const result = Product.getVariantStock(id, color, size);
-
-  if (!result) {
-    return res.status(404).json({ error: "Product not found" });
-  }
-
-  res.json({
-    productId: result.product.id,
-    color: result.color,
-    size: result.size,
-    stock: result.stock
-  });
+module.exports = {
+  getProducts,
+  getProductById,
 };
