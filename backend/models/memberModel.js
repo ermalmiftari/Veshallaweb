@@ -1,8 +1,13 @@
 // models/memberModel.js
-const pool = require("../config/db");
+
+// Handle both CommonJS and ESM versions of ../config/db
+const dbModule = require("../config/db");
+const pool = dbModule.default || dbModule; // if ESM => use default, if CJS => use module itself
 
 async function getAll() {
-  const [rows] = await pool.query("SELECT * FROM members ORDER BY created_at DESC");
+  const [rows] = await pool.query(
+    "SELECT * FROM members ORDER BY created_at DESC"
+  );
   return rows;
 }
 
@@ -21,7 +26,7 @@ async function create(data) {
     location,
     membership_type = "standard",
     stripe_session_id = null,
-    stripe_payment_status = null
+    stripe_payment_status = null,
   } = data;
 
   const [result] = await pool.query(
@@ -37,7 +42,7 @@ async function create(data) {
       location,
       membership_type,
       stripe_session_id,
-      stripe_payment_status
+      stripe_payment_status,
     ]
   );
 
@@ -60,7 +65,7 @@ async function update(id, data) {
     "is_active",
     "stripe_session_id",
     "stripe_payment_status",
-    "membership_code" 
+    "membership_code",
   ];
 
   for (const key of allowed) {
@@ -100,5 +105,5 @@ module.exports = {
   getById,
   create,
   update,
-  remove
+  remove,
 };

@@ -26,4 +26,4 @@ export async function testConnection() {
 // run once at startup
 testConnection();
 
-export default pool;
+export default pool; // IMPORTANT: default export

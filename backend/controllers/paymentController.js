@@ -18,7 +18,9 @@ exports.createCheckoutSession = async (req, res) => {
     const { memberId, amount, currency } = req.body;
 
     if (!memberId || !amount || !currency) {
-      return res.status(400).json({ error: "memberId, amount, and currency are required" });
+      return res
+        .status(400)
+        .json({ error: "memberId, amount, and currency are required" });
     }
 
     const member = await Member.getById(Number(memberId));
@@ -26,7 +28,8 @@ exports.createCheckoutSession = async (req, res) => {
       return res.status(404).json({ error: "Member not found" });
     }
 
-    const frontendBaseUrl = process.env.FRONTEND_BASE_URL || "https://veshalla.info";
+    const frontendBaseUrl =
+      process.env.FRONTEND_BASE_URL || "https://veshalla.info";
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -37,7 +40,9 @@ exports.createCheckoutSession = async (req, res) => {
             currency,
             unit_amount: Math.round(amount * 100), // EUR to cents
             product_data: {
-              name: `Veshalla Membership (${member.location === "mk" ? "Local" : "Diaspora"})`,
+              name: `Veshalla Membership (${
+                member.location === "mk" ? "Local" : "Diaspora"
+              })`,
               description: `${member.name} ${member.surname}`,
             },
           },
@@ -60,7 +65,9 @@ exports.createCheckoutSession = async (req, res) => {
     return res.json({ url: session.url });
   } catch (err) {
     console.error("Error creating checkout session:", err);
-    return res.status(500).json({ error: "Failed to create checkout session" });
+    return res
+      .status(500)
+      .json({ error: "Failed to create checkout session" });
   }
 };
 
@@ -74,7 +81,10 @@ exports.handleWebhook = (req, res) => {
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
   } catch (err) {
-    console.error("Stripe webhook signature verification failed:", err.message);
+    console.error(
+      "Stripe webhook signature verification failed:",
+      err.message
+    );
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
