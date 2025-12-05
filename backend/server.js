@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const productRoutes = require("./routes/productRoutes");
 const memberRoutes = require("./routes/memberRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const orderRoutes = require("./routes/orderRoutes"); // NEW
 
 // Controllers
 const paymentController = require("./controllers/paymentController");
@@ -48,6 +49,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/products", productRoutes);
 app.use("/api/members", memberRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/orders", orderRoutes); // NEW
 
 // Start server
 app.listen(PORT, () => {
