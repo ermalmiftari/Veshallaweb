@@ -1,6 +1,6 @@
 // routes/productRoutes.js
 const express = require("express");
-const db = require("../config/db"); // CommonJS import of the pool
+const db = require("../config/db").default; // ⬅ FIXED
 
 const router = express.Router();
 
@@ -14,18 +14,16 @@ router.get("/", async (req, res) => {
       FROM products p
       JOIN product_sizes ps ON p.id = ps.product_id
       JOIN sizes s ON ps.size_id = s.id
-      GROUP BY p.id;
+      GROUP BY p.id
     `);
 
-    const products = Array.isArray(rows)
-      ? rows.map((item) => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          image: item.image,
-          sizes: item.sizes ? String(item.sizes).split(",") : [],
-        }))
-      : [];
+    const products = rows.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      sizes: item.sizes ? item.sizes.split(",") : [],
+    }));
 
     res.json(products);
   } catch (err) {

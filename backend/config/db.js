@@ -1,9 +1,8 @@
 // config/db.js
-import dotenv from "dotenv";
-import mysql from "mysql2/promise";
+require("dotenv").config();
+const mysql = require("mysql2");
 
-dotenv.config();
-
+// Create the pool
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER,
@@ -12,9 +11,10 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-});
+}).promise(); // <<< IMPORTANT: enables .query() to work
 
-export async function testConnection() {
+// Test connection once
+async function testConnection() {
   try {
     const [rows] = await pool.query("SELECT 1 AS result");
     console.log("MySQL connected. Test query result:", rows[0].result);
@@ -23,7 +23,6 @@ export async function testConnection() {
   }
 }
 
-// run once at startup
 testConnection();
 
-export default pool; // IMPORTANT: default export
+module.exports = pool; // <<< DEFAULT EXPORT for require()
