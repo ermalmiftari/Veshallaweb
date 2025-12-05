@@ -6,12 +6,13 @@ import Home from "./Home";
 import Shop from "./Shop";
 import Camera from "./Camera";
 import Member from "./Member";
+import Checkout from "./Checkout"; // <<< ADD THIS
 
 export default function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-black">
-        
+
         {/* PAGE CONTENT */}
         <main className="flex-grow">
           <Routes>
@@ -23,6 +24,9 @@ export default function App() {
             <Route path="/:lang/shop" element={<Shop />} />
             <Route path="/:lang/camera" element={<Camera />} />
             <Route path="/:lang/member" element={<Member />} />
+
+            {/* NEW CHECKOUT ROUTE */}
+            <Route path="/:lang/checkout" element={<Checkout />} />
           </Routes>
         </main>
 
