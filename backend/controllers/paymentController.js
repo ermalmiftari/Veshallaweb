@@ -1,18 +1,22 @@
 // controllers/paymentController.js
 const stripe = require("../config/stripe");
 const Member = require("../models/memberModel");
+const Order = require("../models/orderModel"); // NEW
 
 function generateMembershipCode() {
   // Simple 8-char code like VES-AB12-CD34
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let part1 = "";
   let part2 = "";
-  for (let i = 0; i < 4; i++) part1 += chars[Math.floor(Math.random() * chars.length)];
-  for (let i = 0; i < 4; i++) part2 += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < 4; i++)
+    part1 += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < 4; i++)
+    part2 += chars[Math.floor(Math.random() * chars.length)];
   return `VES-${part1}-${part2}`;
 }
 
 // POST /api/payments/create-session
+// MEMBERSHIP checkout – uses Member model
 exports.createCheckoutSession = async (req, res) => {
   try {
     const { memberId, amount, currency } = req.body;
@@ -52,6 +56,7 @@ exports.createCheckoutSession = async (req, res) => {
       success_url: `${frontendBaseUrl}/en/member-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${frontendBaseUrl}/en/member?status=cancelled`,
       metadata: {
+        type: "membership", // <<< important for webhook routing
         memberId: String(member.id),
       },
     });
@@ -90,26 +95,52 @@ exports.handleWebhook = (req, res) => {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-    const memberId = session.metadata?.memberId;
-    const sessionId = session.id;
+    const type = session.metadata?.type || "membership";
 
-    (async () => {
-      try {
-        if (!memberId) return;
+    // MEMBERSHIP payment
+    if (type === "membership") {
+      const memberId = session.metadata?.memberId;
+      const sessionId = session.id;
 
-        const code = generateMembershipCode();
+      (async () => {
+        try {
+          if (!memberId) return;
 
-        await Member.update(Number(memberId), {
-          stripe_session_id: sessionId,
-          stripe_payment_status: "paid",
-          membership_code: code,
-        });
+          const code = generateMembershipCode();
 
-        console.log(`Membership paid for member ${memberId}, code=${code}`);
-      } catch (err) {
-        console.error("Error updating member on webhook:", err);
-      }
-    })();
+          await Member.update(Number(memberId), {
+            stripe_session_id: sessionId,
+            stripe_payment_status: "paid",
+            membership_code: code,
+          });
+
+          console.log(`Membership paid for member ${memberId}, code=${code}`);
+        } catch (err) {
+          console.error("Error updating member on webhook:", err);
+        }
+      })();
+    }
+
+    // SHOP ORDER payment
+    if (type === "order") {
+      const orderId = session.metadata?.orderId;
+      const sessionId = session.id;
+
+      (async () => {
+        try {
+          if (!orderId) return;
+
+          await Order.update(Number(orderId), {
+            stripe_session_id: sessionId,
+            stripe_payment_status: "paid",
+          });
+
+          console.log(`Order paid: orderId=${orderId}`);
+        } catch (err) {
+          console.error("Error updating order on webhook:", err);
+        }
+      })();
+    }
   }
 
   res.json({ received: true });

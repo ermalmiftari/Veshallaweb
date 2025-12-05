@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-// Backend base URL:
-// - When running frontend on localhost → talk to local backend on http://localhost:4000
-// - When running on production domain (veshalla.info) → same origin (empty string)
+// Backend base URL
 const isLocalhost =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1";
@@ -11,9 +10,19 @@ const isLocalhost =
 const BASE_URL = isLocalhost ? "http://localhost:4000" : "";
 
 export default function Member() {
-  // ---------------------------------------
+  const { lang } = useParams<{ lang: string }>();
+  const activeLang = lang || "en";
+
+  const { t, i18n } = useTranslation("member");
+
+  // keep i18n in sync with URL language
+  React.useEffect(() => {
+    if (activeLang && i18n.language !== activeLang) {
+      i18n.changeLanguage(activeLang);
+    }
+  }, [activeLang, i18n]);
+
   // COUNTRY META (labels only)
-  // ---------------------------------------
   const countryMeta = {
     mk: { label: "🇲🇰 North Macedonia" },
 
@@ -58,7 +67,7 @@ export default function Member() {
     turkey: { label: "🇹🇷 Turkey" },
     usa: { label: "🇺🇸 USA" },
     canada: { label: "🇨🇦 Canada" },
-    australia: { label: "🇦🇺 Australia" },
+    australia: { label: "🇦🇺 Australia" }
   } as const;
 
   type LocationKey = keyof typeof countryMeta;
@@ -66,9 +75,7 @@ export default function Member() {
   const [location, setLocation] = useState<LocationKey>("mk");
   const [phoneCountry, setPhoneCountry] = useState<LocationKey>("mk");
 
-  // ---------------------------------------
   // PHONE FORMAT PLACEHOLDERS PER COUNTRY
-  // ---------------------------------------
   const phoneFormats: Record<LocationKey, string> = {
     mk: "+389 XX XXX XXX",
 
@@ -111,18 +118,16 @@ export default function Member() {
     turkey: "+90 XXX XXX XXXX",
     usa: "+1 (XXX) XXX-XXXX",
     canada: "+1 (XXX) XXX-XXXX",
-    australia: "+61 X XXXX XXXX",
+    australia: "+61 X XXXX XXXX"
   };
 
-  // ---------------------------------------
   // FORM STATE
-  // ---------------------------------------
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
     phone: "",
     email: "",
-    address: "",
+    address: ""
   });
 
   const { label } = countryMeta[location];
@@ -133,9 +138,7 @@ export default function Member() {
   const handleChange = (field: keyof typeof formData, val: string) =>
     setFormData((prev) => ({ ...prev, [field]: val }));
 
-  // ---------------------------------------
   // SUBMIT (Create member + Stripe payment)
-  // ---------------------------------------
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -146,7 +149,7 @@ export default function Member() {
       !formData.email.trim() ||
       !formData.address.trim()
     ) {
-      alert("Please fill in all fields.");
+      alert(t("fillAllFields"));
       return;
     }
 
@@ -162,16 +165,15 @@ export default function Member() {
           email: formData.email,
           address: formData.address,
           location,
-          // Use enum values that exist in DB: 'standard', 'premium', 'vip'
-          membership_type: isMacedonia ? "standard" : "premium",
-        }),
+          membership_type: isMacedonia ? "standard" : "premium"
+        })
       });
 
       const data = await res.json();
 
       if (!res.ok) {
         console.error("Create member error:", data);
-        alert(data.error || "Failed to create member");
+        alert(data.error || t("createMemberError"));
         return;
       }
 
@@ -183,16 +185,16 @@ export default function Member() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           memberId: createdMemberId,
-          amount: price, // 10 or 100
-          currency, // "EUR"
-        }),
+          amount: price,
+          currency
+        })
       });
 
       const payData = await payRes.json();
 
       if (!payRes.ok) {
         console.error("Payment session error:", payData);
-        alert(payData.error || "Failed to start payment.");
+        alert(payData.error || t("paymentError"));
         return;
       }
 
@@ -200,7 +202,7 @@ export default function Member() {
       window.location.href = payData.url;
     } catch (error) {
       console.error("Network or server error:", error);
-      alert("Network error. Please try again.");
+      alert(t("networkError"));
     }
   };
 
@@ -274,34 +276,31 @@ export default function Member() {
 
   return (
     <div
-      className="
-        min-h-screen relative px-4 sm:px-6 py-10 
-        text-white flex flex-col
-      "
+      className="min-h-screen relative px-4 sm:px-6 py-10 text-white flex flex-col"
       style={{
         background:
-          "linear-gradient(to bottom, #0f0f0f 0%, #121712 45%, #0e1712 100%)",
+          "linear-gradient(to bottom, #0f0f0f 0%, #121712 45%, #0e1712 100%)"
       }}
     >
       {/* HOME BUTTON */}
       <div className="relative z-10 mb-6">
         <Link
-          to="/"
+          to={`/${activeLang}/home`}
           className="flex items-center gap-2 text-amber-300 hover:text-amber-200 text-sm sm:text-base font-medium transition"
         >
-          <span className="text-lg">⛰️</span> Home
+          <span className="text-lg">⛰️</span> {t("home")}
         </Link>
       </div>
 
       {/* HEADER */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-8 sm:mb-10">
         <p className="text-xs tracking-[0.25em] text-amber-200/80 mb-1">
-          COMMUNITY
+          {t("communityTag")}
         </p>
 
         <h1 className="text-3xl sm:text-5xl font-bold drop-shadow-xl">
-          <span className="text-amber-300">Support Veshalla</span> by becoming a
-          member
+          <span className="text-amber-300">{t("headerHighlight")}</span>{" "}
+          {t("headerRest")}
         </h1>
       </div>
 
@@ -309,7 +308,7 @@ export default function Member() {
       <div className="relative z-10 max-w-xl mx-auto w-full">
         <div className="bg-black/40 border border-[#3b3b3b] backdrop-blur-xl shadow-xl rounded-2xl p-6 sm:p-8">
           <h2 className="text-center text-lg sm:text-xl font-semibold text-amber-300 mb-5">
-            Membership Form
+            {t("formTitle")}
           </h2>
 
           <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit}>
@@ -317,7 +316,7 @@ export default function Member() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
-                  Name
+                  {t("name")}
                 </label>
                 <input
                   className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
@@ -328,7 +327,7 @@ export default function Member() {
 
               <div>
                 <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
-                  Surname
+                  {t("surname")}
                 </label>
                 <input
                   className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
@@ -343,7 +342,7 @@ export default function Member() {
               {/* PHONE WITH COUNTRY CHOOSER */}
               <div>
                 <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
-                  Phone
+                  {t("phone")}
                 </label>
                 <div className="flex gap-2">
                   <select
@@ -406,7 +405,7 @@ export default function Member() {
               {/* EMAIL */}
               <div>
                 <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
-                  Email
+                  {t("email")}
                 </label>
                 <input
                   className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
@@ -419,7 +418,7 @@ export default function Member() {
             {/* ADDRESS */}
             <div>
               <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
-                Address
+                {t("address")}
               </label>
               <input
                 className="w-full bg-black/50 border border-[#4c4c4c] px-3 py-2 sm:py-2.5 rounded-lg text-white focus:ring-1 focus:ring-amber-400 outline-none"
@@ -431,7 +430,7 @@ export default function Member() {
             {/* LOCATION SELECT */}
             <div>
               <label className="text-xs sm:text-sm text-gray-300 mb-1 block">
-                Where do you live?
+                {t("locationQuestion")}
               </label>
 
               <select
@@ -446,7 +445,7 @@ export default function Member() {
             {/* PRICE BOX */}
             <div className="bg-black/40 border border-[#4c4c4c] px-4 sm:px-5 py-3 sm:py-4 rounded-xl">
               <p className="text-amber-300 font-medium text-base sm:text-lg">
-                Membership fee:
+                {t("membershipFee")}
                 <span className="font-bold text-amber-200">
                   {" "}
                   {price} {currency}
@@ -455,21 +454,17 @@ export default function Member() {
 
               <p className="text-[10px] sm:text-xs text-amber-200/80 mt-1">
                 {isMacedonia
-                  ? "Local membership price · North Macedonia"
-                  : `Diaspora · ${label}`}
+                  ? t("localNote")
+                  : t("diasporaNote", { country: label })}
               </p>
             </div>
 
             {/* SUBMIT */}
             <button
               type="submit"
-              className="
-                w-full bg-amber-600 hover:bg-amber-500 
-                py-3 sm:py-3.5 rounded-lg font-semibold 
-                shadow-lg transition text-sm sm:text-base
-              "
+              className="w-full bg-amber-600 hover:bg-amber-500 py-3 sm:py-3.5 rounded-lg font-semibold shadow-lg transition text-sm sm:text-base"
             >
-              Join Veshalla →
+              {t("submit")}
             </button>
           </form>
         </div>

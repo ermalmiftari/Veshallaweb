@@ -1,0 +1,21 @@
+{
+  "home": "Home",
+  "communityTag": "COMMUNITY",
+  "headerHighlight": "Support Veshalla",
+  "headerRest": "by becoming a member",
+  "formTitle": "Membership Form",
+  "name": "Name",
+  "surname": "Surname",
+  "phone": "Phone",
+  "email": "Email",
+  "address": "Address",
+  "locationQuestion": "Where do you live?",
+  "membershipFee": "Membership fee:",
+  "localNote": "Local membership price · North Macedonia",
+  "diasporaNote": "Diaspora · {{country}}",
+  "submit": "Join Veshalla →",
+  "fillAllFields": "Please fill in all fields.",
+  "createMemberError": "Failed to create member",
+  "paymentError": "Failed to start payment.",
+  "networkError": "Network error. Please try again."
+}
