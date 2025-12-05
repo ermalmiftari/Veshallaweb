@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Product {
   id: number;
@@ -24,11 +25,21 @@ export default function Shop() {
   const { lang } = useParams<{ lang: string }>();
   const activeLang = lang || "en";
 
+  // use "shop" namespace
+  const { t, i18n } = useTranslation("shop");
+
   const [products, setProducts] = useState<Product[]>([]);
   const [detail, setDetail] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState("M");
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  // Sync URL language with i18next
+  useEffect(() => {
+    if (activeLang && i18n.language !== activeLang) {
+      i18n.changeLanguage(activeLang);
+    }
+  }, [activeLang, i18n]);
 
   // Fetch products from backend
   useEffect(() => {
@@ -118,7 +129,7 @@ export default function Shop() {
         href={`/${activeLang}/home`}
         className="fixed top-safe left-safe sm:top-6 sm:left-6 z-50 px-3 py-2 text-gray-400 hover:text-amber-200 font-medium transition text-sm sm:text-base flex items-center gap-2"
       >
-        ← Home
+        ← {t("backHome")}
       </a>
 
       {/* CART BUTTON FLOATING */}
@@ -126,16 +137,16 @@ export default function Shop() {
         onClick={() => setCartOpen(true)}
         className="fixed top-safe right-safe sm:top-6 sm:right-6 z-50 bg-amber-600 hover:bg-amber-700 rounded-full px-4 py-2 text-sm sm:text-base font-semibold shadow-md"
       >
-        Cart ({cartItems.reduce((sum, i) => sum + i.qty, 0)})
+        {t("cartLabel")} ({cartItems.reduce((sum, i) => sum + i.qty, 0)})
       </button>
 
       {/* HEADER */}
       <header className="pt-28 sm:pt-32 pb-12 sm:pb-16 text-center px-4">
-        <h1 className="text-4xl sm:text-6xl font-bold text-amber-100 mb-3">
-          Veshalla Collection
+        <h1 className="text-4xl sm:6xl font-bold text-amber-100 mb-3">
+          {t("title")}
         </h1>
         <p className="text-gray-400 text-sm sm:text-lg max-w-lg mx-auto">
-          Wear the spirit of the mountains.
+          {t("subtitle")}
         </p>
       </header>
 
@@ -175,7 +186,7 @@ export default function Shop() {
                   </p>
                 </div>
 
-                {/* BUTTON now called "Add to Cart" but behaves like old Details (opens popup) */}
+                {/* BUTTON – open popup */}
                 <button
                   onClick={() => {
                     setSelectedSize("M");
@@ -183,7 +194,7 @@ export default function Shop() {
                   }}
                   className="w-full py-2 bg-amber-600 hover:bg-amber-700 rounded-lg text-white font-semibold"
                 >
-                  Add to Cart
+                  {t("addToCart")}
                 </button>
               </div>
             </div>
@@ -222,7 +233,7 @@ export default function Shop() {
             </p>
 
             <p className="text-xs text-gray-400 mb-2 uppercase font-medium">
-              Select Size
+              {t("selectSize")}
             </p>
             <div className="grid grid-cols-4 gap-3 mb-6">
               {(detail.sizes || ["S", "M", "L", "XL"]).map((size) => (
@@ -244,7 +255,7 @@ export default function Shop() {
               onClick={() => addToCart(detail, selectedSize)}
               className="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold"
             >
-              Add to Cart
+              {t("addToCart")}
             </button>
           </div>
         </div>
@@ -260,7 +271,7 @@ export default function Shop() {
           <div className="fixed right-0 top-0 h-full w-full max-w-xs sm:max-w-md bg-stone-900 border-l border-stone-700 z-50 flex flex-col">
             <div className="flex justify-between items-center p-6 border-b border-stone-700">
               <h2 className="text-xl font-bold text-amber-100">
-                Shopping Cart
+                {t("cartTitle")}
               </h2>
               <button
                 className="text-gray-400 hover:text-white"
@@ -273,7 +284,7 @@ export default function Shop() {
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {cartItems.length === 0 && (
                 <p className="text-gray-400 text-center mt-10">
-                  Your cart is empty
+                  {t("cartEmpty")}
                 </p>
               )}
 
@@ -291,7 +302,7 @@ export default function Shop() {
                       {item.name}
                     </p>
                     <p className="text-xs text-gray-300">
-                      Size: {item.size}
+                      {t("sizeLabel")}: {item.size}
                     </p>
                     <p className="text-amber-200 text-sm font-bold mt-1">
                       {item.price}€
@@ -326,7 +337,7 @@ export default function Shop() {
 
             <div className="p-6 border-t border-stone-700">
               <div className="flex justify-between text-gray-300 mb-3">
-                <span>Subtotal</span>
+                <span>{t("subtotal")}</span>
                 <span className="text-amber-200 font-bold">
                   {subtotal.toFixed(2)}€
                 </span>
@@ -341,7 +352,7 @@ export default function Shop() {
                     : "bg-amber-600 hover:bg-amber-700 text-white"
                 }`}
               >
-                Checkout
+                {t("checkout")}
               </button>
             </div>
           </div>

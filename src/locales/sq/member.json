@@ -1,0 +1,21 @@
+{
+  "home": "Ballina",
+  "communityTag": "KOMUNITETI",
+  "headerHighlight": "Mbështet Veshallën",
+  "headerRest": "duke u bërë anëtar",
+  "formTitle": "Forma e anëtarësimit",
+  "name": "Emri",
+  "surname": "Mbiemri",
+  "phone": "Telefoni",
+  "email": "Email",
+  "address": "Adresa",
+  "locationQuestion": "Ku jeton?",
+  "membershipFee": "Pagesa e anëtarësimit:",
+  "localNote": "Çmimi lokal i anëtarësimit · Maqedonia e Veriut",
+  "diasporaNote": "Diaspora · {{country}}",
+  "submit": "Bëhu pjesë e Veshallës →",
+  "fillAllFields": "Ju lutem plotësoni të gjitha fushat.",
+  "createMemberError": "Nuk u krijua anëtari",
+  "paymentError": "Nuk u nis pagesa.",
+  "networkError": "Gabim në rrjet. Provoni përsëri."
+}

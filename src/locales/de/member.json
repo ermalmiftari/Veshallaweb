@@ -1,0 +1,21 @@
+{
+  "home": "Startseite",
+  "communityTag": "COMMUNITY",
+  "headerHighlight": "Unterstütze Veshalla",
+  "headerRest": "indem du Mitglied wirst",
+  "formTitle": "Mitgliedsformular",
+  "name": "Vorname",
+  "surname": "Nachname",
+  "phone": "Telefon",
+  "email": "E-Mail",
+  "address": "Adresse",
+  "locationQuestion": "Wo lebst du?",
+  "membershipFee": "Mitgliedsbeitrag:",
+  "localNote": "Lokaler Mitgliedspreis · Nordmazedonien",
+  "diasporaNote": "Diaspora · {{country}}",
+  "submit": "Veshalla beitreten →",
+  "fillAllFields": "Bitte alle Felder ausfüllen.",
+  "createMemberError": "Mitglied konnte nicht erstellt werden",
+  "paymentError": "Zahlung konnte nicht gestartet werden.",
+  "networkError": "Netzwerkfehler. Bitte versuche es erneut."
+}

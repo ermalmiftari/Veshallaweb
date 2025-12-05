@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface CartItem {
   id: number;
@@ -10,6 +12,18 @@ interface CartItem {
 }
 
 export default function Checkout() {
+  const { lang } = useParams<{ lang: string }>();
+  const activeLang = lang || "en";
+
+  const { t, i18n } = useTranslation("checkout");
+
+  // keep i18n language in sync with URL
+  useEffect(() => {
+    if (activeLang && i18n.language !== activeLang) {
+      i18n.changeLanguage(activeLang);
+    }
+  }, [activeLang, i18n]);
+
   const [items, setItems] = useState<CartItem[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,12 +51,12 @@ export default function Checkout() {
 
   const handlePay = async () => {
     if (!name || !email || !phone || !address) {
-      setError("Please fill in all fields.");
+      setError(t("fillAllFields"));
       return;
     }
 
     if (items.length === 0) {
-      setError("Your cart is empty.");
+      setError(t("cartEmptyError"));
       return;
     }
 
@@ -50,28 +64,31 @@ export default function Checkout() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://veshalla.info/api/orders/create-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customer_name: name,
-          customer_email: email,
-          customer_phone: phone,
-          shipping_address: address,
-          currency: "eur",
-          items: items.map((item) => ({
-            productId: item.id,
-            name: item.name,
-            size: item.size,
-            qty: item.qty,
-            price: item.price
-          }))
-        })
-      });
+      const res = await fetch(
+        "https://veshalla.info/api/orders/create-session",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            customer_name: name,
+            customer_email: email,
+            customer_phone: phone,
+            shipping_address: address,
+            currency: "eur",
+            items: items.map((item) => ({
+              productId: item.id,
+              name: item.name,
+              size: item.size,
+              qty: item.qty,
+              price: item.price
+            }))
+          })
+        }
+      );
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to start checkout");
+        throw new Error(data.error || t("failedCreateSession"));
       }
 
       const data = await res.json();
@@ -80,7 +97,7 @@ export default function Checkout() {
       window.location.href = data.url;
     } catch (err: any) {
       console.error("Checkout error:", err);
-      setError(err.message || "Something went wrong.");
+      setError(err.message || t("genericError"));
     } finally {
       setLoading(false);
     }
@@ -88,68 +105,73 @@ export default function Checkout() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1a1410] via-[#0f1612] to-[#0a0d0b] text-white pb-safe">
-
       <header className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-stone-800/80">
         <a
-          href="/shop"
+          href={`/${activeLang}/shop`}
           className="text-sm sm:text-base text-gray-300 hover:text-amber-200 transition"
         >
-          ← Back to shop
+          ← {t("backToShop")}
         </a>
         <h1 className="text-lg sm:text-xl font-semibold text-amber-100">
-          Checkout
+          {t("title")}
         </h1>
         <div />
       </header>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 grid gap-8 lg:grid-cols-[2fr,1.5fr]">
-
         {/* Left */}
         <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-5 sm:p-7 shadow-xl">
           <h2 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-4">
-            Contact & Shipping
+            {t("contactShipping")}
           </h2>
 
           <div className="space-y-4">
-
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Full name</label>
+              <label className="block text-sm text-gray-300 mb-1">
+                {t("fullName")}
+              </label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full rounded-lg bg-stone-900 border border-stone-700 px-3 py-2 text-sm"
-                placeholder="Your name"
+                placeholder={t("namePlaceholder")}
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Email</label>
+              <label className="block text-sm text-gray-300 mb-1">
+                {t("email")}
+              </label>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 className="w-full rounded-lg bg-stone-900 border border-stone-700 px-3 py-2 text-sm"
-                placeholder="you@example.com"
+                placeholder={t("emailPlaceholder")}
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Phone</label>
+              <label className="block text-sm text-gray-300 mb-1">
+                {t("phone")}
+              </label>
               <input
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="w-full rounded-lg bg-stone-900 border border-stone-700 px-3 py-2 text-sm"
-                placeholder="+389..."
+                placeholder={t("phonePlaceholder")}
               />
             </div>
 
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Address</label>
+              <label className="block text-sm text-gray-300 mb-1">
+                {t("address")}
+              </label>
               <textarea
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full rounded-lg bg-stone-900 border border-stone-700 px-3 py-2 text-sm min-h-[80px]"
-                placeholder="Street, city, country"
+                placeholder={t("addressPlaceholder")}
               />
             </div>
 
@@ -168,22 +190,33 @@ export default function Checkout() {
                   : "bg-amber-600 hover:bg-amber-700 text-white"
               }`}
             >
-              {loading ? "Redirecting to Stripe..." : `Pay ${subtotal.toFixed(2)} €`}
+              {loading
+                ? t("redirecting")
+                : t("payLabel", { amount: subtotal.toFixed(2) })}
             </button>
 
-            <p className="text-xs text-gray-500 mt-2">Payments are via Stripe.</p>
+            <p className="text-xs text-gray-500 mt-2">
+              {t("stripeNote")}
+            </p>
           </div>
         </section>
 
         {/* Right */}
         <section className="bg-stone-900/60 border border-stone-800 rounded-2xl p-5 sm:p-7 shadow-xl">
           <h2 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-4">
-            Order Summary
+            {t("summaryTitle")}
           </h2>
 
           {items.length === 0 ? (
             <p className="text-gray-400 text-sm">
-              Your cart is empty. <a href="/shop" className="text-amber-300 underline">Go back</a>.
+              {t("emptyCart")}{" "}
+              <a
+                href={`/${activeLang}/shop`}
+                className="text-amber-300 underline"
+              >
+                {t("goBack")}
+              </a>
+              .
             </p>
           ) : (
             <>
@@ -193,10 +226,15 @@ export default function Checkout() {
                     key={`${item.id}-${item.size}`}
                     className="flex gap-3 items-center bg-stone-900/80 border border-stone-700/70 rounded-xl p-3"
                   >
-                    <img src={item.image} className="w-16 h-16 rounded-md object-cover" />
+                    <img
+                      src={item.image}
+                      className="w-16 h-16 rounded-md object-cover"
+                    />
 
                     <div className="flex-1">
-                      <p className="text-sm font-semibold text-amber-100">{item.name}</p>
+                      <p className="text-sm font-semibold text-amber-100">
+                        {item.name}
+                      </p>
                       <p className="text-xs text-gray-400">
                         Size: {item.size} · Qty: {item.qty}
                       </p>
@@ -211,12 +249,12 @@ export default function Checkout() {
 
               <div className="border-t border-stone-700 mt-4 pt-4 text-sm space-y-2">
                 <div className="flex justify-between text-gray-300">
-                  <span>Subtotal</span>
+                  <span>{t("subtotal")}</span>
                   <span>{subtotal.toFixed(2)} €</span>
                 </div>
 
                 <div className="flex justify-between text-amber-200 font-bold">
-                  <span>Total</span>
+                  <span>{t("total")}</span>
                   <span>{subtotal.toFixed(2)} €</span>
                 </div>
               </div>

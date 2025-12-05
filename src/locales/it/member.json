@@ -1,0 +1,21 @@
+{
+  "home": "Home",
+  "communityTag": "COMMUNITY",
+  "headerHighlight": "Sostieni Veshalla",
+  "headerRest": "diventando membro",
+  "formTitle": "Modulo di iscrizione",
+  "name": "Nome",
+  "surname": "Cognome",
+  "phone": "Telefono",
+  "email": "Email",
+  "address": "Indirizzo",
+  "locationQuestion": "Dove vivi?",
+  "membershipFee": "Quota associativa:",
+  "localNote": "Prezzo locale · Macedonia del Nord",
+  "diasporaNote": "Diaspora · {{country}}",
+  "submit": "Unisciti a Veshalla →",
+  "fillAllFields": "Compila tutti i campi.",
+  "createMemberError": "Impossibile creare il membro",
+  "paymentError": "Impossibile avviare il pagamento.",
+  "networkError": "Errore di rete. Riprova."
+}
