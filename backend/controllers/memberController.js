@@ -29,19 +29,35 @@ exports.getMemberById = async (req, res) => {
 
 exports.createMember = async (req, res) => {
   try {
+    console.log("Incoming member body:", req.body);
+
     const { name, surname, phone, email, address, location } = req.body;
 
     if (!name || !surname || !phone || !email || !address || !location) {
       return res.status(400).json({
-        error: "name, surname, phone, email, address and location are required"
+        error: "name, surname, phone, email, address and location are required",
       });
     }
 
     const newMember = await Member.create(req.body);
-    res.status(201).json(newMember);
+    return res.status(201).json(newMember);
   } catch (err) {
     console.error("Error creating member:", err);
-    res.status(500).json({ error: "Failed to create member" });
+
+    // TEMP: make the error visible so you see exactly what MySQL complains about
+    if (err.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({
+        error: "A member with this email or membership code already exists",
+        code: err.code,
+      });
+    }
+
+    return res.status(500).json({
+      error: "Failed to create member",
+      code: err.code,
+      message: err.message,
+      sqlMessage: err.sqlMessage,
+    });
   }
 };
 
