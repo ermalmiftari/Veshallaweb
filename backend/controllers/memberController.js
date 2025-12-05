@@ -1,7 +1,36 @@
 // controllers/memberController.js
 const Member = require("../models/memberModel");
 
-exports.createMember = async (req, res) => {
+// GET /api/members
+async function getMembers(req, res) {
+  try {
+    const members = await Member.getAll();
+    return res.json(members);
+  } catch (err) {
+    console.error("Error getting members:", err);
+    return res.status(500).json({ error: "Failed to fetch members" });
+  }
+}
+
+// GET /api/members/:id
+async function getMemberById(req, res) {
+  try {
+    const id = Number(req.params.id);
+    const member = await Member.getById(id);
+
+    if (!member) {
+      return res.status(404).json({ error: "Member not found" });
+    }
+
+    return res.json(member);
+  } catch (err) {
+    console.error("Error getting member by id:", err);
+    return res.status(500).json({ error: "Failed to fetch member" });
+  }
+}
+
+// POST /api/members
+async function createMember(req, res) {
   try {
     console.log("Incoming member body:", req.body);
 
@@ -18,7 +47,7 @@ exports.createMember = async (req, res) => {
   } catch (err) {
     console.error("Error creating member:", err);
 
-    // TEMP: expose details so we can finally see the true problem
+    // TEMP: detailed error – you can simplify this later
     return res.status(500).json({
       error: "Failed to create member",
       code: err.code,
@@ -26,4 +55,47 @@ exports.createMember = async (req, res) => {
       sqlMessage: err.sqlMessage,
     });
   }
+}
+
+// PUT /api/members/:id
+async function updateMember(req, res) {
+  try {
+    const id = Number(req.params.id);
+    const updated = await Member.update(id, req.body);
+
+    if (!updated) {
+      return res.status(404).json({ error: "Member not found" });
+    }
+
+    return res.json(updated);
+  } catch (err) {
+    console.error("Error updating member:", err);
+    return res.status(500).json({ error: "Failed to update member" });
+  }
+}
+
+// DELETE /api/members/:id
+async function deleteMember(req, res) {
+  try {
+    const id = Number(req.params.id);
+    const removed = await Member.remove(id);
+
+    if (!removed) {
+      return res.status(404).json({ error: "Member not found" });
+    }
+
+    return res.json({ message: "Member deleted", removed });
+  } catch (err) {
+    console.error("Error deleting member:", err);
+    return res.status(500).json({ error: "Failed to delete member" });
+  }
+}
+
+// Export all controller functions
+module.exports = {
+  getMembers,
+  getMemberById,
+  createMember,
+  updateMember,
+  deleteMember,
 };
