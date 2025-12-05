@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { X } from "lucide-react";
 
 interface Product {
@@ -20,6 +21,9 @@ interface CartItem {
 }
 
 export default function Shop() {
+  const { lang } = useParams<{ lang: string }>();
+  const activeLang = lang || "en";
+
   const [products, setProducts] = useState<Product[]>([]);
   const [detail, setDetail] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState("M");
@@ -99,22 +103,19 @@ export default function Shop() {
     0
   );
 
-  // NEW: handle checkout – store cart to localStorage and go to /checkout
+  // handle checkout – store cart and go to /:lang/checkout
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
 
-    // Save cart for Checkout.tsx page
     localStorage.setItem("veshalla_cart", JSON.stringify(cartItems));
-
-    // Redirect to your checkout page (adjust path if you use /en/checkout, etc.)
-    window.location.href = "/checkout";
+    window.location.href = `/${activeLang}/checkout`;
   };
 
   return (
     <div className="min-h-screen relative overflow-hidden text-white bg-gradient-to-b from-[#1a1410] via-[#0f1612] to-[#0a0d0b] pb-safe">
       {/* HOME BUTTON */}
       <a
-        href="/"
+        href={`/${activeLang}/home`}
         className="fixed top-safe left-safe sm:top-6 sm:left-6 z-50 px-3 py-2 text-gray-400 hover:text-amber-200 font-medium transition text-sm sm:text-base flex items-center gap-2"
       >
         ← Home
@@ -146,7 +147,7 @@ export default function Shop() {
               key={p.id}
               className="rounded-xl bg-stone-900/50 border border-stone-700/40 shadow-xl hover:border-stone-600/60 transition"
             >
-              {/* IMAGE */}
+              {/* IMAGE – opens details popup */}
               <div
                 className="h-64 sm:h-72 w-full overflow-hidden cursor-pointer"
                 onClick={() => {
@@ -174,6 +175,7 @@ export default function Shop() {
                   </p>
                 </div>
 
+                {/* BUTTON now called "Add to Cart" but behaves like old Details (opens popup) */}
                 <button
                   onClick={() => {
                     setSelectedSize("M");
@@ -181,7 +183,7 @@ export default function Shop() {
                   }}
                   className="w-full py-2 bg-amber-600 hover:bg-amber-700 rounded-lg text-white font-semibold"
                 >
-                  Details
+                  Add to Cart
                 </button>
               </div>
             </div>
