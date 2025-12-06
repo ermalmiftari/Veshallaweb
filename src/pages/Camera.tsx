@@ -43,7 +43,7 @@ export default function Camera() {
       <div className="relative z-10 mb-6 flex items-center justify-between">
         {/* HOME BUTTON */}
         <Link
-          to={`/${activeLang}`}
+          to={`/${activeLang}/home`}
           className="
             flex items-center gap-2
             text-amber-300 hover:text-amber-200
