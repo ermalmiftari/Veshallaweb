@@ -27,7 +27,7 @@ export default function Home() {
 
   const handleLanguageChange = (newLang: string) => {
     if (newLang === activeLang) return
-    navigate(`/${newLang}`)
+    navigate(`/${newLang}/home`)
   }
 
   // ALL 29 PHOTOS

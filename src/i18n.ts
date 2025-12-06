@@ -8,6 +8,12 @@ import deHome from "./locales/de/home.json";
 import itHome from "./locales/it/home.json";
 import sqHome from "./locales/sq/home.json";
 
+// PAGE-SPECIFIC: camera
+import enCamera from "./locales/en/camera.json";
+import deCamera from "./locales/de/camera.json";
+import itCamera from "./locales/it/camera.json";
+import sqCamera from "./locales/sq/camera.json";
+
 // PAGE-SPECIFIC: shop
 import enShop from "./locales/en/shop.json";
 import deShop from "./locales/de/shop.json";
@@ -32,24 +38,28 @@ i18n
     resources: {
       en: {
         home: enHome,
+        camera: enCamera,
         shop: enShop,
         member: enMember,
         checkout: enCheckout
       },
       de: {
         home: deHome,
+        camera: deCamera,
         shop: deShop,
         member: deMember,
         checkout: deCheckout
       },
       it: {
         home: itHome,
+        camera: itCamera,
         shop: itShop,
         member: itMember,
         checkout: itCheckout
       },
       sq: {
         home: sqHome,
+        camera: sqCamera,
         shop: sqShop,
         member: sqMember,
         checkout: sqCheckout
@@ -59,8 +69,8 @@ i18n
     lng: "en",
     fallbackLng: "en",
 
-    // Add "home" namespace
-    ns: ["home", "shop", "member", "checkout"],
+    // Add "camera" namespace
+    ns: ["home", "camera", "shop", "member", "checkout"],
     defaultNS: "home",
 
     interpolation: {
