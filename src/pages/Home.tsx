@@ -74,59 +74,66 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-orange-50 to-emerald-100 text-slate-900">
       {/* NAVBAR */}
-      <nav className="fixed left-0 right-0 z-50 mx-auto max-w-7xl px-4 py-3">
-        <motion.div
-          initial={{ y: -60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center justify-between rounded-2xl bg-emerald-900/70 backdrop-blur-xl px-4 py-2 shadow-xl border border-amber-400/40"
-        >
-          <button className="flex items-center gap-3 text-white">
-            <div className="rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-2 shadow-lg">⛰️</div>
-            <div className="hidden sm:block">
-              <div className="font-bold text-amber-200">Veshalla</div>
-              <div className="text-xs text-white/70">Mountain Village</div>
-            </div>
-          </button>
+<nav className="fixed left-0 right-0 z-50 mx-auto max-w-7xl px-4 py-3">
+  <motion.div
+    initial={{ y: -60, opacity: 0 }}
+    animate={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.6 }}
+    className="flex items-center justify-between rounded-2xl bg-emerald-900/70 backdrop-blur-xl px-4 py-2 shadow-xl border border-amber-400/40"
+  >
+    {/* Logo */}
+    <button className="flex items-center gap-3 text-white">
+      <img
+        src="/veshallalogo.jpg"
+        alt="Veshalla Logo"
+        className="w-10 h-10 rounded-full object-cover shadow-lg"
+      />
+      <div className="hidden sm:block">
+        <div className="font-bold text-amber-200">Veshalla</div>
+        <div className="text-xs text-white/70">Mountain Village</div>
+      </div>
+    </button>
 
-          <div className="hidden sm:flex items-center gap-6 text-sm">
-            <button
-              onClick={() => document.getElementById("about")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              About
-            </button>
-            <button
-              onClick={() => document.getElementById("things")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Experiences
-            </button>
-            <button
-              onClick={() => document.getElementById("gallery")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Gallery
-            </button>
-            <button
-              onClick={() => document.getElementById("hiking")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Hiking
-            </button>
-            <button
-              onClick={() => document.getElementById("sponsors")?.scrollIntoView()}
-              className="text-amber-100 hover:text-amber-300"
-            >
-              Sponsors
-            </button>
-          </div>
+    {/* Desktop Nav Links */}
+    <div className="hidden sm:flex items-center gap-6 text-sm">
+      <button
+        onClick={() => document.getElementById("about")?.scrollIntoView()}
+        className="text-amber-100 hover:text-amber-300"
+      >
+        About
+      </button>
+      <button
+        onClick={() => document.getElementById("things")?.scrollIntoView()}
+        className="text-amber-100 hover:text-amber-300"
+      >
+        Experiences
+      </button>
+      <button
+        onClick={() => document.getElementById("gallery")?.scrollIntoView()}
+        className="text-amber-100 hover:text-amber-300"
+      >
+        Gallery
+      </button>
+      <button
+        onClick={() => document.getElementById("hiking")?.scrollIntoView()}
+        className="text-amber-100 hover:text-amber-300"
+      >
+        Hiking
+      </button>
+      <button
+        onClick={() => document.getElementById("sponsors")?.scrollIntoView()}
+        className="text-amber-100 hover:text-amber-300"
+      >
+        Sponsors
+      </button>
+    </div>
 
-          <button className="sm:hidden" onClick={() => setMenuOpen(true)}>
-            <Menu className="text-amber-200" />
-          </button>
-        </motion.div>
-      </nav>
+    {/* Mobile Menu Button */}
+    <button className="sm:hidden" onClick={() => setMenuOpen(true)}>
+      <Menu className="text-amber-200" />
+    </button>
+  </motion.div>
+</nav>
 
       {/* HERO SECTION */}
       <header
@@ -278,7 +285,7 @@ export default function Home() {
             className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4"
           >
             <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-4 text-center text-white shadow-lg">
-              <div className="text-3xl font-bold">2,528m</div>
+              <div className="text-3xl font-bold">1247m</div>
               <div className="text-sm text-emerald-100">Elevation</div>
             </div>
             <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-4 text-center text-white shadow-lg">
@@ -297,191 +304,144 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EXPERIENCES */}
-      <section
-        id="things"
-        className="py-20 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100 relative overflow-hidden"
-      >
-        {/* Decorative background elements */}
-        <div className="absolute top-20 right-20 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl"></div>
+    {/* EXPERIENCES */}
+<section
+  id="things"
+  className="py-20 bg-gradient-to-br from-emerald-100 via-emerald-50 to-teal-100 relative overflow-hidden"
+>
+  {/* Decorative background elements */}
+  <div className="absolute top-20 right-20 w-64 h-64 bg-orange-300/20 rounded-full blur-3xl"></div>
+  <div className="absolute bottom-20 left-20 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl"></div>
 
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-block mb-4">
-              <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-full shadow-lg">
-                <span className="text-xl">✨</span>
-                <span className="font-semibold text-sm">What Awaits You</span>
-              </div>
-            </div>
-            <h2 className="text-5xl font-extrabold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-700 bg-clip-text text-transparent mb-4">
-              Experiences
-            </h2>
-            <p className="text-slate-700 text-xl max-w-3xl mx-auto">
-              Discover the authentic beauty of mountain life through unforgettable experiences in Veshalla.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="bg-gradient-to-br from-white to-emerald-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-emerald-200"
-            >
-              <div className="text-5xl mb-4 bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center">
-                🥾
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Mountain Hiking</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Explore scenic trails through ancient forests and alpine meadows. Routes for all skill levels, from
-                gentle walks to challenging summit climbs.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-blue-200"
-            >
-              <div className="text-5xl mb-4 bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center">
-                💧
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Waterfall Visits</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Discover hidden waterfalls cascading down mountain cliffs. Perfect spots for photography and
-                experiencing the raw power of nature.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="bg-gradient-to-br from-white to-amber-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-amber-200"
-            >
-              <div className="text-5xl mb-4 bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center">
-                🍵
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Tea with Locals</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Experience genuine highland hospitality. Share traditional mountain tea and home-baked goods while
-                listening to stories of village life.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="bg-gradient-to-br from-white to-teal-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-teal-200"
-            >
-              <div className="text-5xl mb-4 bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center">🏔️</div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Peak Climbing</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Challenge yourself with guided climbs to nearby peaks including Kobilica (2,528m). Breathtaking
-                panoramic views await at the summit.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="bg-gradient-to-br from-white to-green-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-green-200"
-            >
-              <div className="text-5xl mb-4 bg-green-100 w-16 h-16 rounded-full flex items-center justify-center">
-                🌲
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Forest Exploration</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Wander through pristine mountain forests. Spot wildlife, identify native plants, and breathe in the
-                therapeutic mountain air.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.5 }}
-              className="bg-gradient-to-br from-white to-orange-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-orange-200"
-            >
-              <div className="text-5xl mb-4 bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center">
-                📸
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Photography Tours</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Capture stunning mountain landscapes, traditional architecture, and golden-hour vistas. Perfect for
-                amateur and professional photographers.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.6 }}
-              className="bg-gradient-to-br from-white to-purple-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-purple-200"
-            >
-              <div className="text-5xl mb-4 bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center">
-                🏛️
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Cultural Heritage</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Visit the historic Colorful Mosque (est. 1438) and Tetovo Fortress. Explore centuries of mountain
-                culture and Ottoman architecture.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.7 }}
-              className="bg-gradient-to-br from-white to-indigo-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-indigo-200"
-            >
-              <div className="text-5xl mb-4 bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center">
-                ⛺
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Mountain Camping</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Sleep under star-filled skies at designated camping spots. Experience the tranquility of mountain nights
-                away from city lights.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.8 }}
-              className="bg-gradient-to-br from-white to-cyan-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-cyan-200"
-            >
-              <div className="text-5xl mb-4 bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center">
-                🧘
-              </div>
-              <h3 className="font-bold text-xl text-emerald-900 mb-3">Mountain Meditation</h3>
-              <p className="text-slate-700 leading-relaxed">
-                Find peace in nature's silence. Perfect environment for meditation, yoga, and digital detox in the heart
-                of the mountains.
-              </p>
-            </motion.div>
-          </div>
+  <div className="max-w-6xl mx-auto px-6 relative z-10">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-center mb-12"
+    >
+      <div className="inline-block mb-4">
+        <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded-full shadow-lg">
+          <span className="text-xl">✨</span>
+          <span className="font-semibold text-sm">What Awaits You</span>
         </div>
-      </section>
+      </div>
+      <h2 className="text-5xl font-extrabold bg-gradient-to-r from-emerald-700 via-teal-600 to-emerald-700 bg-clip-text text-transparent mb-4">
+        Experiences
+      </h2>
+      <p className="text-slate-700 text-xl max-w-3xl mx-auto">
+        Discover the authentic beauty of mountain life through unforgettable experiences in Veshalla.
+      </p>
+    </motion.div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      {/* Mountain Hiking */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
+        className="bg-gradient-to-br from-white to-emerald-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-emerald-200"
+      >
+        <div className="text-5xl mb-4 bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center">
+          🥾
+        </div>
+        <h3 className="font-bold text-xl text-emerald-900 mb-3">Mountain Hiking</h3>
+        <p className="text-slate-700 leading-relaxed">
+          Explore scenic trails through ancient forests and alpine meadows. Routes for all skill levels.
+        </p>
+      </motion.div>
+
+      {/* Waterfall Visits */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+        className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-blue-200"
+      >
+        <div className="text-5xl mb-4 bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center">
+          💧
+        </div>
+        <h3 className="font-bold text-xl text-emerald-900 mb-3">Waterfall Visits</h3>
+        <p className="text-slate-700 leading-relaxed">
+          Discover hidden waterfalls and perfect photography spots.
+        </p>
+      </motion.div>
+
+      {/* Tea with Locals */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+        className="bg-gradient-to-br from-white to-amber-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-amber-200"
+      >
+        <div className="text-5xl mb-4 bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center">
+          🍵
+        </div>
+        <h3 className="font-bold text-xl text-emerald-900 mb-3">Tea with Locals</h3>
+        <p className="text-slate-700 leading-relaxed">
+          Enjoy traditional tea and mountain hospitality with local families.
+        </p>
+      </motion.div>
+
+      {/* Peak Climbing */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+        className="bg-gradient-to-br from-white to-teal-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-teal-200"
+      >
+        <div className="text-5xl mb-4 bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center">
+          🏔️
+        </div>
+        <h3 className="font-bold text-xl text-emerald-900 mb-3">Peak Climbing</h3>
+        <p className="text-slate-700 leading-relaxed">
+          Guided climbs to breathtaking summits like Kobilica (2,528m).
+        </p>
+      </motion.div>
+
+      {/* Forest Exploration */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.4 }}
+        className="bg-gradient-to-br from-white to-green-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-green-200"
+      >
+        <div className="text-5xl mb-4 bg-green-100 w-16 h-16 rounded-full flex items-center justify-center">
+          🌲
+        </div>
+        <h3 className="font-bold text-xl text-emerald-900 mb-3">Forest Exploration</h3>
+        <p className="text-slate-700 leading-relaxed">
+          Spot wildlife and learn about mountain plants while breathing fresh air.
+        </p>
+      </motion.div>
+
+      {/* Photography Tours */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.5 }}
+        className="bg-gradient-to-br from-white to-orange-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-orange-200"
+      >
+        <div className="text-5xl mb-4 bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center">
+          📸
+        </div>
+        <h3 className="font-bold text-xl text-emerald-900 mb-3">Photography Tours</h3>
+        <p className="text-slate-700 leading-relaxed">
+          Capture unforgettable views — perfect for all photographers.
+        </p>
+      </motion.div>
+
+    </div>
+  </div>
+</section>
 
       {/* GALLERY */}
       <section
@@ -658,69 +618,60 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-    
- {/* INTERACTIVE MAP */}
-<div className="overflow-hidden rounded-3xl shadow-2xl border-4 border-white mb-10">
-  <VeshallaMap />
-</div>
+<section id="hiking-map" className="py-20 bg-white">
+  <div style={{ width: "100%", height: "600px" }}>
+    <VeshallaMap />
+  </div>
+</section>
+
+
 
 
       {/* SPONSORS */}
-      <section
-        id="sponsors"
-        className="py-20 bg-gradient-to-br from-orange-100 via-amber-50 to-emerald-100 relative overflow-hidden"
-      >
-        {/* Decorative background elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-300/20 rounded-full blur-3xl"></div>
+<section
+  id="sponsors"
+  className="py-20 bg-gradient-to-br from-orange-100 via-amber-50 to-emerald-100 relative overflow-hidden"
+>
+  {/* Decorative background elements */}
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-300/20 rounded-full blur-3xl"></div>
 
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-block mb-4">
-              <div className="flex items-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-2 rounded-full shadow-lg">
-                <span className="text-xl">🤝</span>
-                <span className="font-semibold text-sm">Community Support</span>
-              </div>
-            </div>
-            <h2 className="text-5xl font-extrabold bg-gradient-to-r from-emerald-800 via-amber-600 to-orange-600 bg-clip-text text-transparent mb-4">
-              Our Sponsors
-            </h2>
-            <p className="text-slate-700 text-xl mb-12 max-w-2xl mx-auto">
-              Thank you to all supporters who help keep Veshalla alive and thriving.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white p-4"
-          >
-            <img src="/1.png" className="w-full h-auto object-contain rounded-2xl" />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-12 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 text-white shadow-xl"
-          >
-            <h3 className="text-2xl font-bold mb-3">Want to Support Veshalla?</h3>
-            <p className="text-emerald-100 mb-5 max-w-2xl mx-auto">
-              Join our community of sponsors and help preserve this beautiful mountain village for future generations.
-            </p>
-            <button className="bg-white text-emerald-700 px-8 py-3 rounded-xl font-bold hover:bg-emerald-50 transition shadow-lg hover:shadow-xl">
-              Become a Sponsor
-            </button>
-          </motion.div>
+  <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="inline-block mb-4">
+        <div className="flex items-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-2 rounded-full shadow-lg">
+          <span className="text-xl">🤝</span>
+          <span className="font-semibold text-sm">Community Support</span>
         </div>
-      </section>
+      </div>
+      <h2 className="text-5xl font-extrabold bg-gradient-to-r from-emerald-800 via-amber-600 to-orange-600 bg-clip-text text-transparent mb-4">
+        Our Sponsors
+      </h2>
+      <p className="text-slate-700 text-xl mb-12 max-w-2xl mx-auto">
+        Thank you to all supporters who help keep Veshalla alive and thriving.
+      </p>
+    </motion.div>
+
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white p-4"
+    >
+      <img src="/1.png" className="w-full h-auto object-contain rounded-2xl" />
+    </motion.div>
+
+   
+      
+    
+  </div>
+</section>
+
 
       {/* Mobile Menu */}
       <AnimatePresence>

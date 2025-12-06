@@ -9,17 +9,22 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 relative z-10">
 
-        {/* BRAND */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-2 shadow-lg">⛰️</div>
-            <h3 className="text-lg font-bold text-amber-300">Veshalla</h3>
-          </div>
-          <p className="text-sm text-gray-400 leading-relaxed">
-            A high-mountain village in the Šar Mountains — where tradition, nature,
-            and the global diaspora stay united with pride.
-          </p>
-        </div>
+      {/* BRAND */}
+<div>
+  <div className="flex items-center gap-3 mb-4">
+    <img
+      src="/veshallalogo.jpg"
+      alt="Veshalla Logo"
+      className="w-10 h-10 rounded-full object-cover shadow-lg"
+    />
+    <h3 className="text-lg font-bold text-amber-300">Veshalla</h3>
+  </div>
+  <p className="text-sm text-gray-400 leading-relaxed">
+    A high-mountain village in the Šar Mountains — where tradition, nature,
+    and the global diaspora stay united with pride.
+  </p>
+</div>
+
 
         {/* QUICK LINKS */}
         <div>
