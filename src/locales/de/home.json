@@ -1,0 +1,95 @@
+{
+  "navbar": {
+    "subtitle": "Bergdorf",
+    "about": "Über uns",
+    "experiences": "Erlebnisse",
+    "gallery": "Galerie",
+    "hiking": "Wandern",
+    "sponsors": "Sponsoren"
+  },
+  "hero": {
+    "title": "Willkommen in Veshalla",
+    "subtitle": "Ein Bergdorf über den Wolken, das von Menschen aus der ganzen Welt geliebt wird.",
+    "shop": {
+      "title": "Shop",
+      "desc": "Entdecke authentische Produkte aus Veshalla"
+    },
+    "member": {
+      "title": "Mitgliedschaft",
+      "desc": "Werde Teil unserer Gemeinschaft und unterstütze das Dorf"
+    },
+    "camera": {
+      "title": "Live-Kamera",
+      "desc": "Sieh Veshalla in Echtzeit"
+    },
+    "scroll": "Nach unten scrollen"
+  },
+  "about": {
+    "badge": "Unsere Geschichte entdecken",
+    "title": "Über Veshalla",
+    "paragraph1": "Veshalla ist eines der höchstgelegenen Dörfer im Šar-Gebirge, auf einer Höhe, auf der die Wolken durch die Täler unterhalb ziehen. Umgeben von unberührten Wäldern, glasklaren Bergbächen und einer der saubersten Luftschichten der Region steht dieses Dorf für eine Verbindung zur Natur, die in unserer modernen Welt immer seltener wird.",
+    "paragraph2": "Seit Jahrhunderten ist Veshalla die Heimat widerstandsfähiger Gemeinschaften, die ihr Leben im Rhythmus der Berge aufgebaut haben. Heute leben viele Familien in der Schweiz, Deutschland, Italien und den USA, doch das Herz jeder Familie aus Veshalla schlägt weiterhin in diesen Hochlagen. Jeden Sommer erwacht das Dorf zum Leben, wenn Mitglieder der Diaspora zurückkehren, um ihre Wurzeln zu spüren, Traditionen zu bewahren und Geschichten unter dem Berg­himmel zu teilen.",
+    "paragraph3": "Das Dorf ist nicht nur ein Ort – es ist ein lebendiges Erbe der Bergkultur, traditioneller Architektur und eines Gemeinschaftsgefühls, das Grenzen überwindet. Ob du Abenteuer, Ruhe oder einen authentischen Einblick in das Leben in den Bergen suchst – Veshalla heißt dich mit offenen Armen und der Wärme der Hochland-Gastfreundschaft willkommen.",
+    "stats": {
+      "elevation": "Höhenlage",
+      "centuries": {
+        "label": "Jahrhunderte",
+        "caption": "Geschichte"
+      },
+      "air": {
+        "label": "Kristallklare",
+        "caption": "Luft"
+      },
+      "community": {
+        "label": "Globale",
+        "caption": "Gemeinschaft"
+      }
+    }
+  },
+  "experiences": {
+    "badge": "Was dich erwartet",
+    "title": "Erlebnisse",
+    "subtitle": "Entdecke die echte Schönheit des Berglebens durch unvergessliche Erlebnisse in Veshalla.",
+    "hiking": {
+      "title": "Bergwandern",
+      "desc": "Erkunde malerische Wege durch uralte Wälder und alpine Wiesen. Routen für jedes Niveau."
+    },
+    "waterfalls": {
+      "title": "Wasserfälle besuchen",
+      "desc": "Entdecke versteckte Wasserfälle und perfekte Orte für Fotos."
+    },
+    "tea": {
+      "title": "Tee mit Einheimischen",
+      "desc": "Genieße traditionellen Tee und Berggastfreundschaft bei lokalen Familien."
+    },
+    "peaks": {
+      "title": "Gipfelbesteigungen",
+      "desc": "Geführte Touren zu atemberaubenden Gipfeln wie Kobilica (2.528 m)."
+    },
+    "forest": {
+      "title": "Wald-Erkundung",
+      "desc": "Beobachte Wildtiere und lerne Bergpflanzen kennen, während du frische Luft einatmest."
+    },
+    "photo": {
+      "title": "Fototouren",
+      "desc": "Halte unvergessliche Ausblicke fest – perfekt für alle Fotografen."
+    }
+  },
+  "gallery": {
+    "badge": "Visuelle Reise",
+    "title": "Galerie",
+    "subtitle": "Erkunde schöne Momente aus Veshalla",
+    "viewAll": "Alle ansehen ({{count}})",
+    "imageAlt": "Veshalla {{index}}",
+    "cardLabel": "Veshalla Momente",
+    "modal": {
+      "title": "Alle Fotos",
+      "subtitle": "{{count}} Fotos aus Veshalla"
+    }
+  },
+  "sponsors": {
+    "badge": "Gemeinschaftliche Unterstützung",
+    "title": "Unsere Sponsoren",
+    "subtitle": "Danke an alle Unterstützer, die helfen, Veshalla lebendig und stark zu halten."
+  }
+}

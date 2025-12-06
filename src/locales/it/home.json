@@ -1,0 +1,95 @@
+{
+  "navbar": {
+    "subtitle": "Villaggio di montagna",
+    "about": "Chi siamo",
+    "experiences": "Esperienze",
+    "gallery": "Galleria",
+    "hiking": "Trekking",
+    "sponsors": "Sponsor"
+  },
+  "hero": {
+    "title": "Benvenuti a Veshalla",
+    "subtitle": "Un villaggio di montagna sopra le nuvole, amato da persone di tutto il mondo.",
+    "shop": {
+      "title": "Shop",
+      "desc": "Scopri prodotti autentici da Veshalla"
+    },
+    "member": {
+      "title": "Membership",
+      "desc": "Unisciti alla comunità e sostieni il villaggio"
+    },
+    "camera": {
+      "title": "Camera live",
+      "desc": "Guarda Veshalla in tempo reale"
+    },
+    "scroll": "Scorri in basso"
+  },
+  "about": {
+    "badge": "Scopri la nostra storia",
+    "title": "Su Veshalla",
+    "paragraph1": "Veshalla è uno dei villaggi più alti dei Monti Šar, situato a un’altitudine dove le nuvole scorrono nelle valli sottostanti. Circondato da foreste incontaminate, ruscelli di montagna cristallini e da una delle arie più pulite della regione, questo villaggio rappresenta un legame con la natura sempre più raro nel mondo moderno.",
+    "paragraph2": "Da secoli Veshalla è la casa di comunità resilienti che hanno costruito la propria vita seguendo il ritmo delle montagne. Oggi molte famiglie vivono in Svizzera, Germania, Italia e negli Stati Uniti, ma il cuore di ogni famiglia di Veshalla continua a battere in queste alture. Ogni estate il villaggio torna a vivere quando la diaspora ritorna per riconnettersi con le proprie radici, preservare le tradizioni e condividere storie sotto il cielo di montagna.",
+    "paragraph3": "Il villaggio non è solo un luogo: è un patrimonio vivente di cultura montana, architettura tradizionale e di un forte senso di comunità che supera i confini. Che tu cerchi avventura, tranquillità o uno sguardo autentico sulla vita di montagna, Veshalla ti accoglie a braccia aperte con il calore dell’ospitalità d’alta quota.",
+    "stats": {
+      "elevation": "Altitudine",
+      "centuries": {
+        "label": "Secoli",
+        "caption": "di eredità"
+      },
+      "air": {
+        "label": "Aria",
+        "caption": "cristallina"
+      },
+      "community": {
+        "label": "Comunità",
+        "caption": "globale"
+      }
+    }
+  },
+  "experiences": {
+    "badge": "Cosa ti aspetta",
+    "title": "Esperienze",
+    "subtitle": "Scopri la bellezza autentica della vita in montagna attraverso esperienze indimenticabili a Veshalla.",
+    "hiking": {
+      "title": "Trekking in montagna",
+      "desc": "Esplora sentieri panoramici tra foreste antiche e prati alpini. Percorsi per tutti i livelli."
+    },
+    "waterfalls": {
+      "title": "Visita alle cascate",
+      "desc": "Scopri cascate nascoste e punti perfetti per le fotografie."
+    },
+    "tea": {
+      "title": "Tè con i locali",
+      "desc": "Goditi il tè tradizionale e l’ospitalità di montagna con le famiglie del posto."
+    },
+    "peaks": {
+      "title": "Salita alle cime",
+      "desc": "Escursioni guidate verso cime spettacolari come Kobilica (2.528 m)."
+    },
+    "forest": {
+      "title": "Esplorazione della foresta",
+      "desc": "Osserva la fauna selvatica e scopri le piante di montagna respirando aria pura."
+    },
+    "photo": {
+      "title": "Tour fotografici",
+      "desc": "Cattura panorami indimenticabili — perfetti per ogni fotografo."
+    }
+  },
+  "gallery": {
+    "badge": "Viaggio visivo",
+    "title": "Galleria",
+    "subtitle": "Esplora i momenti più belli di Veshalla",
+    "viewAll": "Mostra tutto ({{count}})",
+    "imageAlt": "Veshalla {{index}}",
+    "cardLabel": "Momenti di Veshalla",
+    "modal": {
+      "title": "Tutte le foto",
+      "subtitle": "{{count}} foto da Veshalla"
+    }
+  },
+  "sponsors": {
+    "badge": "Supporto della comunità",
+    "title": "I nostri sponsor",
+    "subtitle": "Grazie a tutti i sostenitori che aiutano a mantenere Veshalla viva e prospera."
+  }
+}

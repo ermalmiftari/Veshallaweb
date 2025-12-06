@@ -1,0 +1,95 @@
+{
+  "navbar": {
+    "subtitle": "Mountain Village",
+    "about": "About",
+    "experiences": "Experiences",
+    "gallery": "Gallery",
+    "hiking": "Hiking",
+    "sponsors": "Sponsors"
+  },
+  "hero": {
+    "title": "Welcome to Veshalla",
+    "subtitle": "A mountain village above the clouds loved by people across the world.",
+    "shop": {
+      "title": "Shop",
+      "desc": "Browse authentic products from Veshalla"
+    },
+    "member": {
+      "title": "Membership",
+      "desc": "Join our community & support the village"
+    },
+    "camera": {
+      "title": "Live Camera",
+      "desc": "Watch Veshalla in real-time"
+    },
+    "scroll": "Scroll Down"
+  },
+  "about": {
+    "badge": "Discover Our Story",
+    "title": "About Veshalla",
+    "paragraph1": "Veshalla is one of the highest villages in the Šar Mountains, perched at an elevation where clouds drift through the valleys below. Surrounded by pristine forests, crystal-clear mountain streams, and some of the cleanest air in the region, this village represents a connection to nature that is increasingly rare in our modern world.",
+    "paragraph2": "For centuries, Veshalla has been home to resilient communities who have built their lives around the rhythm of the mountains. Today, while many families have spread across Switzerland, Germany, Italy, and the USA in search of opportunities, the heart of every Veshalla family still beats in these highlands. Every summer, the village comes alive as diaspora members return to reconnect with their roots, preserve traditions, and share stories under the mountain sky.",
+    "paragraph3": "The village is not just a place—it's a living heritage of mountain culture, traditional architecture, and a community bond that transcends borders. Whether you're seeking adventure, tranquility, or a glimpse into authentic mountain life, Veshalla welcomes you with open arms and the warmth of highland hospitality.",
+    "stats": {
+      "elevation": "Elevation",
+      "centuries": {
+        "label": "Centuries",
+        "caption": "Of Heritage"
+      },
+      "air": {
+        "label": "Crystal",
+        "caption": "Clear Air"
+      },
+      "community": {
+        "label": "Global",
+        "caption": "Community"
+      }
+    }
+  },
+  "experiences": {
+    "badge": "What Awaits You",
+    "title": "Experiences",
+    "subtitle": "Discover the authentic beauty of mountain life through unforgettable experiences in Veshalla.",
+    "hiking": {
+      "title": "Mountain Hiking",
+      "desc": "Explore scenic trails through ancient forests and alpine meadows. Routes for all skill levels."
+    },
+    "waterfalls": {
+      "title": "Waterfall Visits",
+      "desc": "Discover hidden waterfalls and perfect photography spots."
+    },
+    "tea": {
+      "title": "Tea with Locals",
+      "desc": "Enjoy traditional tea and mountain hospitality with local families."
+    },
+    "peaks": {
+      "title": "Peak Climbing",
+      "desc": "Guided climbs to breathtaking summits like Kobilica (2,528m)."
+    },
+    "forest": {
+      "title": "Forest Exploration",
+      "desc": "Spot wildlife and learn about mountain plants while breathing fresh air."
+    },
+    "photo": {
+      "title": "Photography Tours",
+      "desc": "Capture unforgettable views — perfect for all photographers."
+    }
+  },
+  "gallery": {
+    "badge": "Visual Journey",
+    "title": "Gallery",
+    "subtitle": "Explore beautiful moments from Veshalla",
+    "viewAll": "View All ({{count}})",
+    "imageAlt": "Veshalla {{index}}",
+    "cardLabel": "Veshalla Moments",
+    "modal": {
+      "title": "All Photos",
+      "subtitle": "{{count}} photos from Veshalla"
+    }
+  },
+  "sponsors": {
+    "badge": "Community Support",
+    "title": "Our Sponsors",
+    "subtitle": "Thank you to all supporters who help keep Veshalla alive and thriving."
+  }
+}

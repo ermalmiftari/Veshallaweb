@@ -1,0 +1,95 @@
+{
+  "navbar": {
+    "subtitle": "Fshat malor",
+    "about": "Rreth nesh",
+    "experiences": "Përvoja",
+    "gallery": "Galeria",
+    "hiking": "Hiking",
+    "sponsors": "Sponsorët"
+  },
+  "hero": {
+    "title": "Mirë se vini në Veshalla",
+    "subtitle": "Një fshat malor mbi re, i dashur nga njerëz në mbarë botën.",
+    "shop": {
+      "title": "Dyqani",
+      "desc": "Shfleto produkte autentike nga Veshalla"
+    },
+    "member": {
+      "title": "Anëtarësia",
+      "desc": "Bëhu pjesë e komunitetit dhe përkrah fshatin"
+    },
+    "camera": {
+      "title": "Kamera live",
+      "desc": "Shiko Veshallën në kohë reale"
+    },
+    "scroll": "Rrëshqit poshtë"
+  },
+  "about": {
+    "badge": "Zbulo historinë tonë",
+    "title": "Rreth Veshallës",
+    "paragraph1": "Veshalla është një nga fshatrat më të larta në malet e Sharrit, e vendosur në një lartësi ku retë kalojnë nëpër lugina më poshtë. E rrethuar me pyje të paprekura, përrenj malorë kristal të pastër dhe njërën nga ajrat më të pastra në rajon, ky fshat përfaqëson një lidhje me natyrën që po bëhet gjithnjë e më e rrallë në botën moderne.",
+    "paragraph2": "Prej shekujsh, Veshalla ka qenë shtëpi e komuniteteve të qëndrueshme që e kanë ndërtuar jetën e tyre sipas ritmit të maleve. Sot, edhe pse shumë familje jetojnë në Zvicër, Gjermani, Itali dhe SHBA në kërkim të mundësive, zemra e çdo familjeje nga Veshalla vazhdon të rrahë në këto male. Çdo verë, fshati gjallërohet kur diaspora kthehet për t’u rilidhur me rrënjët, për të ruajtur traditat dhe për të ndarë histori nën qiellin malor.",
+    "paragraph3": "Fshati nuk është vetëm një vend – është trashëgimi e gjallë e kulturës malore, arkitekturës tradicionale dhe një lidhjeje komunitare që kapërcen kufijtë. Qoftë nëse kërkon aventurë, qetësi apo një pamje autentike të jetës në male, Veshalla të mirëpret me krahë hapur dhe ngrohtësinë e mikpritjes së malësorëve.",
+    "stats": {
+      "elevation": "Lartësia",
+      "centuries": {
+        "label": "Shekuj",
+        "caption": "Trashëgimie"
+      },
+      "air": {
+        "label": "Ajër",
+        "caption": "kristal i pastër"
+      },
+      "community": {
+        "label": "Komunitet",
+        "caption": "global"
+      }
+    }
+  },
+  "experiences": {
+    "badge": "Çfarë të pret",
+    "title": "Përvoja",
+    "subtitle": "Zbulo bukurinë autentike të jetës në mal përmes përvojave të paharrueshme në Veshalla.",
+    "hiking": {
+      "title": "Hiking në male",
+      "desc": "Eksploro shtigje piktoreske përmes pyjeve të vjetra dhe livadheve alpine. Rruga për çdo nivel."
+    },
+    "waterfalls": {
+      "title": "Vizitë tek ujëvarat",
+      "desc": "Zbulo ujëvara të fshehura dhe vende perfekte për fotografi."
+    },
+    "tea": {
+      "title": "Çaj me vendasit",
+      "desc": "Shijo çaj tradicional dhe mikpritjen malore bashkë me familjet vendase."
+    },
+    "peaks": {
+      "title": "Ngjitje në maja",
+      "desc": "Ngjitje të udhëhequara në maja mahnitëse si Kobilica (2,528 m)."
+    },
+    "forest": {
+      "title": "Eksplorim i pyllit",
+      "desc": "Vëzhgo kafshët e egra dhe njih bimët malore duke thithur ajër të pastër."
+    },
+    "photo": {
+      "title": "Ture fotografike",
+      "desc": "Fiksou pamje të paharrueshme — perfekte për çdo fotograf."
+    }
+  },
+  "gallery": {
+    "badge": "Udhëtim vizual",
+    "title": "Galeria",
+    "subtitle": "Eksploro momentet më të bukura nga Veshalla",
+    "viewAll": "Shiko të gjitha ({{count}})",
+    "imageAlt": "Veshalla {{index}}",
+    "cardLabel": "Momente nga Veshalla",
+    "modal": {
+      "title": "Të gjitha fotot",
+      "subtitle": "{{count}} foto nga Veshalla"
+    }
+  },
+  "sponsors": {
+    "badge": "Përkrahje nga komuniteti",
+    "title": "Sponsorët tanë",
+    "subtitle": "Faleminderit të gjithë përkrahësve që ndihmojnë ta mbajnë Veshallën të gjallë dhe të zhvilluar."
+  }
+}

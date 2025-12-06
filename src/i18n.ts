@@ -2,6 +2,12 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+// PAGE-SPECIFIC: home
+import enHome from "./locales/en/home.json";
+import deHome from "./locales/de/home.json";
+import itHome from "./locales/it/home.json";
+import sqHome from "./locales/sq/home.json";
+
 // PAGE-SPECIFIC: shop
 import enShop from "./locales/en/shop.json";
 import deShop from "./locales/de/shop.json";
@@ -25,30 +31,38 @@ i18n
   .init({
     resources: {
       en: {
+        home: enHome,
         shop: enShop,
         member: enMember,
         checkout: enCheckout
       },
       de: {
+        home: deHome,
         shop: deShop,
         member: deMember,
         checkout: deCheckout
       },
       it: {
+        home: itHome,
         shop: itShop,
         member: itMember,
         checkout: itCheckout
       },
       sq: {
+        home: sqHome,
         shop: sqShop,
         member: sqMember,
         checkout: sqCheckout
       }
     },
+
     lng: "en",
     fallbackLng: "en",
-    ns: ["shop", "member", "checkout"],
-    defaultNS: "shop",
+
+    // Add "home" namespace
+    ns: ["home", "shop", "member", "checkout"],
+    defaultNS: "home",
+
     interpolation: {
       escapeValue: false
     }
