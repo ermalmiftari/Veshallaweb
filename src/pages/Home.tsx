@@ -108,25 +108,25 @@ export default function Home() {
             </div>
           </button>
 
-          {/* Desktop Nav Links + Language Switcher */}
-          <div className="hidden sm:flex items-center gap-6 text-sm">
-            {/* Language Switcher */}
-            <div className="flex items-center gap-1 bg-emerald-800/80 rounded-full px-2 py-1 text-xs">
-              {["en", "de", "it", "sq"].map((code) => (
-                <button
-                  key={code}
-                  onClick={() => handleLanguageChange(code)}
-                  className={`px-2 py-1 rounded-full transition ${
-                    activeLang === code
-                      ? "bg-amber-400 text-emerald-900 font-semibold"
-                      : "text-amber-100 hover:text-amber-300"
-                  }`}
-                >
-                  {code.toUpperCase()}
-                </button>
-              ))}
-            </div>
+          {/* Desktop Language Switcher */}
+          <div className="hidden sm:flex items-center gap-1 bg-emerald-800/80 rounded-full px-2 py-1 text-xs">
+            {["en", "de", "it", "sq"].map((code) => (
+              <button
+                key={code}
+                onClick={() => handleLanguageChange(code)}
+                className={`px-2 py-1 rounded-full transition ${
+                  activeLang === code
+                    ? "bg-amber-400 text-emerald-900 font-semibold"
+                    : "text-amber-100 hover:text-amber-300"
+                }`}
+              >
+                {code.toUpperCase()}
+              </button>
+            ))}
+          </div>
 
+          {/* Nav Links (Desktop only) */}
+          <div className="hidden sm:flex items-center gap-6 text-sm">
             {/* Links */}
             <button
               onClick={() => document.getElementById("about")?.scrollIntoView()}
@@ -160,16 +160,36 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button className="sm:hidden" onClick={() => setMenuOpen(true)}>
-            <Menu className="text-amber-200" />
-          </button>
+          {/* Mobile Language Switcher + Menu Button */}
+          <div className="sm:hidden flex items-center gap-3">
+            {/* Mobile Language Switcher */}
+            <div className="flex items-center gap-1 bg-emerald-800/80 rounded-full px-2 py-1 text-xs">
+              {["en", "de", "it", "sq"].map((code) => (
+                <button
+                  key={code}
+                  onClick={() => handleLanguageChange(code)}
+                  className={`px-2 py-1 rounded-full transition ${
+                    activeLang === code
+                      ? "bg-amber-400 text-emerald-900 font-semibold"
+                      : "text-amber-100 hover:text-amber-300"
+                  }`}
+                >
+                  {code.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            
+            {/* Mobile Menu Button */}
+            <button onClick={() => setMenuOpen(true)}>
+              <Menu className="text-amber-200" />
+            </button>
+          </div>
         </motion.div>
       </nav>
 
       {/* HERO SECTION */}
       <header
-        className="relative min-h-screen text-white flex items-center justify-center text-center px-6"
+        className="relative min-h-screen text-white flex items-center justify-center text-center px-6 pt-24"
         style={{
           backgroundImage: `url("/Veshalla.jpeg")`,
           backgroundSize: "cover",
@@ -718,8 +738,6 @@ export default function Home() {
             <button className="absolute top-6 right-6" onClick={() => setMenuOpen(false)}>
               <X size={32} className="text-amber-200" />
             </button>
-
-            {/* You can also add a small language switcher here later if you want */}
 
             <button
               onClick={() => {
